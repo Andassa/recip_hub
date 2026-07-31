@@ -1,23 +1,52 @@
 # Recipe Hub
 
-Application Flutter de recettes de cuisine, fidèle aux maquettes Figma (pixel-perfect).
+App Flutter de recettes de cuisine. Les écrans suivent les maquettes Figma du projet.
 
-## Stack technique
+## Stack
 
 - Flutter 3.x (null safety)
-- **go_router** — navigation déclarative + `StatefulShellRoute`
-- **Provider** — state management
-- **shared_preferences** — persistance du thème clair/sombre
-- **google_fonts** — typographie Poppins
-- **flutter_svg** — icône chef hat
+- go_router pour la navigation
+- Provider pour l'état
+- shared_preferences pour le thème clair / sombre
+- google_fonts (Poppins)
 
 ## Captures d'écran
 
-> Remplace les placeholders ci-dessous par tes screenshots :
+### Splash
+![Splash](assets/capture/Splash%20Screen.png)
 
-| Splash | Sign In | Home |
-|--------|---------|------|
-| ![Splash](docs/screenshots/splash.png) | ![Sign In](docs/screenshots/sign_in.png) | ![Home](docs/screenshots/home.png) |
+### Sign in
+![Sign in](assets/capture/Sign%20in.png)
+
+### Sign up
+![Sign up](assets/capture/Sign%20up.png)
+
+### Home
+![Home](assets/capture/Home.png)
+
+### Search
+![Search](assets/capture/Search.png)
+
+### Filter
+![Filter](assets/capture/Filter.png)
+
+### Détail recette
+![Recipe detail](assets/capture/Receip%20Ingredient.png)
+
+### Reviews
+![Reviews](assets/capture/reviews.png)
+
+### Rate
+![Rate](assets/capture/rate.png)
+
+### Notifications
+![Notifications](assets/capture/notifications.png)
+
+### Notification lue
+![Notification read](assets/capture/notification_read.png)
+
+### Profile
+![Profile](assets/capture/Profile.png)
 
 ## Installation
 
@@ -26,41 +55,41 @@ flutter pub get
 flutter run
 ```
 
-## Structure du projet
+## Structure
 
 ```
 lib/
   main.dart
-  theme/          → couleurs + ThemeData clair/sombre
-  models/         → Recipe, Ingredient
-  data/           → repository + mock data (12 recettes)
-  providers/      → RecipeProvider, ThemeProvider
-  router/         → GoRouter (routes nommées)
-  screens/        → Splash, Auth, Home, Search, Detail, Add, Favorites, Settings
-  widgets/        → cartes, chips, search bar, bottom nav, filter sheet…
-  utils/          → isTablet() / responsive helpers
+  theme/        couleurs et thèmes clair / sombre
+  models/       Recipe, Review, Notification
+  data/         repository et données mock
+  providers/    RecipeProvider, ThemeProvider
+  router/       GoRouter (routes nommées)
+  screens/      tous les écrans
+  widgets/      cartes, chips, nav, dialogs
+  utils/        isTablet et padding responsive
 assets/
-  images/         → fonds et photos recettes
-  icons/          → SVG (chef hat)
+  images/       photos recettes et fonds
+  icons/        chef hat
+  capture/      screenshots de l'app
 ```
 
 ## Fonctionnalités
 
-- Splash + Sign In / Sign Up (UI Figma)
-- Home avec catégories, popular cards, new recipes
-- Recherche + filtre avancé (Time / Rate / Category)
-- Détail recette (Ingredients / Procedure, menu More, Share)
-- Favoris (Saved recipes)
-- Formulaire d’ajout avec validation
-- Thème clair / sombre persisté
-- Responsive mobile (< 600px) / tablette (≥ 600px)
+- Splash, Sign in, Sign up
+- Home (catégories, popular, new recipes)
+- Recherche et filtres (temps, note, catégorie)
+- Détail recette (ingrédients, étapes, favori, share, rate)
+- Reviews
+- Favoris (Saved)
+- Notifications
+- Profile et Settings (thème clair / sombre persisté)
+- Formulaire d'ajout avec validation
+- Responsive mobile et tablette (NavigationRail)
 
-## Assets
+## Assets utiles
 
-| Usage | Fichier |
-|-------|---------|
-| Splash background | `assets/images/splash_bg.jpg` |
-| Chef hat icon | `assets/icons/chef_hat.svg` |
-| Recipe photos | `assets/images/recipe_1.jpg` … `recipe_4.jpg` |
-| Avatar | `assets/images/avatar.png` |
-# recip_hub
+- Fond splash : `assets/images/splash_bg.jpg`
+- Icône chef : `assets/icons/chef_hat.png`
+- Photos recettes : `assets/images/recipe_1.jpg` à `recipe_4.jpg`
+- Avatar : `assets/images/avatar.png`
