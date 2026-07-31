@@ -1,0 +1,139 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../core/assets.dart';
+import '../providers/recipe_provider.dart';
+import '../providers/theme_provider.dart';
+import '../theme/app_colors.dart';
+import '../utils/responsive.dart';
+import '../widgets/common/chef_hat_icon.dart';
+import '../widgets/recipe_card.dart';
+
+/// Profile Figma + accès Settings (thème).
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final recipes = context.watch<RecipeProvider>().allRecipes.take(4).toList();
+    final pad = horizontalPadding(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Profile',
+          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_horiz),
+            onPressed: () => context.goNamed('settings'),
+          ),
+        ],
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(pad),
+        children: [
+          Row(
+            children: [
+              const CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage(AppAssets.avatar),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _stat('Recipe', '${recipes.length}'),
+                    _stat('Followers', '2.5M'),
+                    _stat('Following', '259'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Text(
+            'Afuwape Abiodun',
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Row(
+            children: [
+              const ChefHatIcon(size: 16),
+              const SizedBox(width: 4),
+              Text(
+                'Chef',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  color: AppColors.textMuted,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Private Chef. Passionate about food and life 🥘🥣🍝🍱.',
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: AppColors.textMuted,
+            ),
+          ),
+          const SizedBox(height: 16),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              'Dark mode',
+              style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+            ),
+            value: context.watch<ThemeProvider>().isDark,
+            activeThumbColor: AppColors.primary,
+            onChanged: (_) => context.read<ThemeProvider>().toggleTheme(),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'My Recipes',
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 12),
+          ...recipes.map(
+            (r) => Padding(
+              padding: const EdgeInsets.only(bottom: 14),
+              child: RecipeCard(
+                recipe: r,
+                height: 150,
+                showTime: true,
+                onTap: () =>
+                    context.goNamed('detail', pathParameters: {'id': r.id}),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _stat(String label, String value) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        Text(
+          label,
+          style: GoogleFonts.poppins(fontSize: 11, color: AppColors.textMuted),
+        ),
+      ],
+    );
+  }
+}
