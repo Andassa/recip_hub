@@ -86,7 +86,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     Row(
                       children: [
                         IconButton(
-                          onPressed: () => context.pop(),
+                          onPressed: () {
+                            if (context.canPop()) {
+                              context.pop();
+                            } else {
+                              context.goNamed('home');
+                            }
+                          },
                           icon: const Icon(Icons.arrow_back),
                         ),
                         const Spacer(),

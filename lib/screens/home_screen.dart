@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                       final recipe = provider.popularRecipes[i];
                       return PopularRecipeCard(
                         recipe: recipe,
-                        onTap: () => context.goNamed(
+                        onTap: () => context.pushNamed(
                           'detail',
                           pathParameters: {'id': recipe.id},
                         ),
@@ -131,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                       final recipe = provider.newRecipes[i];
                       return NewRecipeCard(
                         recipe: recipe,
-                        onTap: () => context.goNamed(
+                        onTap: () => context.pushNamed(
                           'detail',
                           pathParameters: {'id': recipe.id},
                         ),

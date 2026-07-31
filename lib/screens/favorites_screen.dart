@@ -68,7 +68,7 @@ class FavoritesScreen extends StatelessWidget {
                   recipe: recipe,
                   showTime: true,
                   onFavoriteTap: () => provider.toggleFavorite(recipe.id),
-                  onTap: () => context.goNamed(
+                  onTap: () => context.pushNamed(
                     'detail',
                     pathParameters: {'id': recipe.id},
                   ),
@@ -86,7 +86,7 @@ class FavoritesScreen extends StatelessWidget {
                   height: 160,
                   showTime: true,
                   onFavoriteTap: () => provider.toggleFavorite(recipe.id),
-                  onTap: () => context.goNamed(
+                  onTap: () => context.pushNamed(
                     'detail',
                     pathParameters: {'id': recipe.id},
                   ),

@@ -72,10 +72,15 @@ class ShellScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      extendBody: true,
       body: navigationShell,
-      bottomNavigationBar: CustomBottomNav(
-        currentIndex: index,
-        onTap: (i) => _onTap(context, i),
+      bottomNavigationBar: Material(
+        color: Colors.transparent,
+        elevation: 0,
+        child: CustomBottomNav(
+          currentIndex: index,
+          onTap: (i) => _onTap(context, i),
+        ),
       ),
     );
   }

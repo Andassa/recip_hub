@@ -113,7 +113,7 @@ class ProfileScreen extends StatelessWidget {
                 height: 150,
                 showTime: true,
                 onTap: () =>
-                    context.goNamed('detail', pathParameters: {'id': r.id}),
+                    context.pushNamed('detail', pathParameters: {'id': r.id}),
               ),
             ),
           ),

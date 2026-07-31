@@ -116,7 +116,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         return RecipeCard(
                           recipe: recipe,
                           height: double.infinity,
-                          onTap: () => context.goNamed(
+                          onTap: () => context.pushNamed(
                             'detail',
                             pathParameters: {'id': recipe.id},
                           ),

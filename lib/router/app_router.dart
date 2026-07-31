@@ -85,12 +85,14 @@ final GoRouter appRouter = GoRouter(
       name: 'detail',
       builder: (_, state) =>
           RecipeDetailScreen(recipeId: state.pathParameters['id']!),
-    ),
-    GoRoute(
-      path: '/recipe/:id/reviews',
-      name: 'reviews',
-      builder: (_, state) =>
-          ReviewsScreen(recipeId: state.pathParameters['id']!),
+      routes: [
+        GoRoute(
+          path: 'reviews',
+          name: 'reviews',
+          builder: (_, state) =>
+              ReviewsScreen(recipeId: state.pathParameters['id']!),
+        ),
+      ],
     ),
     GoRoute(
       path: '/add-recipe',
