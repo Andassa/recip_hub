@@ -42,7 +42,7 @@ class RecipeProvider extends ChangeNotifier {
     _error = null;
     notifyListeners();
     try {
-      _allRecipes = await _repository.getAll();
+      _allRecipes = List<Recipe>.from(await _repository.getAll());
       _applyFilters();
     } catch (e) {
       _error = 'Impossible de charger les recettes.';

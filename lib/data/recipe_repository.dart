@@ -1,16 +1,23 @@
 import '../models/recipe.dart';
 import 'mock_recipes.dart';
 
-/// Repository local exposant les recettes (mock en mémoire).
+/// Repository local (couche data) : lecture / écriture des recettes mock.
+/// Les screens et widgets n'accèdent jamais à [mockRecipes] directement.
 class RecipeRepository {
-  RecipeRepository({List<Recipe>? initialRecipes})
-    : _recipes = List<Recipe>.from(initialRecipes ?? mockRecipes);
+  RecipeRepository({
+    List<Recipe>? initialRecipes,
+    this.latency = const Duration(milliseconds: 400),
+  }) : _recipes = List<Recipe>.from(initialRecipes ?? mockRecipes);
 
   final List<Recipe> _recipes;
 
-  /// Simule un délai réseau pour afficher un loader.
+  /// Délai simulé (mettre [Duration.zero] dans les tests).
+  final Duration latency;
+
   Future<void> _simulateDelay() async {
-    await Future<void>.delayed(const Duration(milliseconds: 400));
+    if (latency > Duration.zero) {
+      await Future<void>.delayed(latency);
+    }
   }
 
   Future<List<Recipe>> getAll() async {

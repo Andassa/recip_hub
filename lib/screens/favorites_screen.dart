@@ -8,7 +8,7 @@ import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
 import '../widgets/recipe_card.dart';
 
-/// Écran Saved recipes / Favoris (maquette Figma).
+/// Écran 4 : favoris (Saved). ListView mobile, GridView tablette.
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
@@ -17,7 +17,9 @@ class FavoritesScreen extends StatelessWidget {
     final provider = context.watch<RecipeProvider>();
     final favorites = provider.favorites;
     final padding = horizontalPadding(context);
-    final tablet = isTablet(context);
+    // Responsive : ListView (mobile) / GridView (tablette).
+    final columns = gridCrossAxisCount(context);
+    final useGrid = columns >= 2;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,11 +54,11 @@ class FavoritesScreen extends StatelessWidget {
                 ],
               ),
             )
-          : tablet
+          : useGrid
           ? GridView.builder(
               padding: EdgeInsets.all(padding),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: columns,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
                 childAspectRatio: 1.4,

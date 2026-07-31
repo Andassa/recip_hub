@@ -6,7 +6,7 @@ import '../providers/theme_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
 
-/// Écran Settings — toggle thème clair/sombre + à propos.
+/// Écran 5 : Settings. Toggle thème clair / sombre (persisté).
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 

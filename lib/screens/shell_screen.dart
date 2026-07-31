@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import '../utils/responsive.dart';
 import '../widgets/custom_bottom_nav.dart';
 
-/// Shell Figma : Home / Saved / FAB+ / Notifications / Profile.
+/// Shell de navigation :
+/// - mobile : CustomBottomNav (Home / Saved / FAB Add / Alerts / Profile)
+/// - tablette : NavigationRail + FloatingActionButton
 class ShellScreen extends StatelessWidget {
   const ShellScreen({super.key, required this.navigationShell});
 
@@ -29,6 +31,7 @@ class ShellScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final index = navigationShell.currentIndex;
 
+    // Responsive : NavigationRail dès que shortestSide >= 600.
     if (isTablet(context)) {
       return Scaffold(
         floatingActionButton: FloatingActionButton(

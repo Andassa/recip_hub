@@ -14,22 +14,17 @@ import '../widgets/new_recipe_card.dart';
 import '../widgets/popular_recipe_card.dart';
 import '../widgets/search_bar_widget.dart';
 
-/// Home Figma — composition légère.
+/// Écran 1 (Home) : recherche, chips catégories, listes popular / new.
+/// Les recettes viennent uniquement de [RecipeProvider].
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  static const _homeCategories = [
-    'All',
-    'Indian',
-    'Italian',
-    'Asian',
-    'Chinese',
-  ];
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<RecipeProvider>();
     final pad = horizontalPadding(context);
+    // Catégories depuis le repository (via provider), pas hardcodées ici.
+    final homeCategories = provider.categories.take(5).toList(growable: false);
 
     if (provider.isLoading) {
       return const Scaffold(
@@ -69,10 +64,10 @@ class HomeScreen extends StatelessWidget {
                         height: 36,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemCount: _homeCategories.length,
+                          itemCount: homeCategories.length,
                           separatorBuilder: (_, _) => const SizedBox(width: 10),
                           itemBuilder: (_, i) {
-                            final cat = _homeCategories[i];
+                            final cat = homeCategories[i];
                             return CategoryChip(
                               label: cat,
                               isSelected: provider.selectedCategory == cat,

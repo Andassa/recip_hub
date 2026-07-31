@@ -25,3 +25,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/capture/
+    - assets/capture/receip ingredient/
+    - assets/capture/receip_ingredient/

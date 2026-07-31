@@ -17,7 +17,8 @@ import '../widgets/dialogs/rate_recipe_dialog.dart';
 import '../widgets/dialogs/share_recipe_dialog.dart';
 import '../widgets/difficulty_badge.dart';
 
-/// Détail recette — orchestration légère des widgets extraits.
+/// Écran 2 : détail recette (`/recipe/:id`).
+/// Affiche image, titre, durée, difficulté, ingrédients, étapes, favori.
 class RecipeDetailScreen extends StatefulWidget {
   const RecipeDetailScreen({super.key, required this.recipeId});
 

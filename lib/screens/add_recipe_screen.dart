@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 import '../data/mock_recipes.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
+import '../utils/form_validators.dart';
 import '../utils/responsive.dart';
 import '../widgets/primary_button.dart';
 
-/// Formulaire d'ajout de recette avec validation.
+/// Écran 3 : formulaire d'ajout avec Form + GlobalKey + validateurs
+/// (titre, catégorie, durée obligatoires).
 class AddRecipeScreen extends StatefulWidget {
   const AddRecipeScreen({super.key});
 
@@ -86,12 +88,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(hintText: 'Recipe title'),
-                validator: (value) {
-                  if (value == null || value.trim().length < 3) {
-                    return 'Title must be at least 3 characters';
-                  }
-                  return null;
-                },
+                validator: FormValidators.requiredTitle,
               ),
               const SizedBox(height: 16),
               _label('Category'),
@@ -103,8 +100,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     .map((c) => DropdownMenuItem(value: c, child: Text(c)))
                     .toList(),
                 onChanged: (value) => setState(() => _category = value),
-                validator: (value) =>
-                    value == null ? 'Category is required' : null,
+                validator: FormValidators.requiredCategory,
               ),
               const SizedBox(height: 16),
               _label('Duration (minutes)'),
@@ -112,16 +108,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 controller: _durationController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(hintText: 'e.g. 20'),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Duration is required';
-                  }
-                  final n = int.tryParse(value.trim());
-                  if (n == null || n <= 0) {
-                    return 'Enter a positive number';
-                  }
-                  return null;
-                },
+                validator: FormValidators.positiveDuration,
               ),
               const SizedBox(height: 16),
               _label('Difficulty'),

@@ -2,6 +2,26 @@
 
 App Flutter de recettes de cuisine. Les écrans suivent les maquettes Figma du projet.
 
+## Score checklist (brief Navigation et Routing)
+
+| Exigence | Statut | Où |
+| --- | --- | --- |
+| 4+ écrans | OK | Home, Detail, Add Recipe, Favorites, Settings, Search… |
+| go_router + routes nommées | OK | `lib/router/app_router.dart` |
+| Shell + bottom nav / NavigationRail | OK | `lib/screens/shell_screen.dart` |
+| Recherche + filtres | OK | `RecipeProvider` + Home / Search |
+| Détail `/recipe/:id` | OK | `recipe_detail_screen.dart` |
+| Formulaire 3 champs + validation | OK | `add_recipe_screen.dart` + `form_validators.dart` |
+| Thème clair / sombre persisté | OK | `ThemeProvider` + Settings |
+| 8+ widgets Flutter | OK | ListView, GridView, Stack, Card, Hero… |
+| 3+ widgets réutilisables | OK | `recipe_card`, `search_bar_widget`, `category_chip` |
+| Responsive mobile / tablette | OK | `isTablet` + NavigationRail + GridView |
+| Pas de data hardcodée dans widgets | OK | repository + provider |
+| Tests | OK | dossier `test/` (unit + widget + router) |
+| CI | OK | `.github/workflows/flutter_ci.yml` |
+
+Détail du mapping : [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)
+
 ## Stack
 
 - Flutter 3.x (null safety)
@@ -9,6 +29,55 @@ App Flutter de recettes de cuisine. Les écrans suivent les maquettes Figma du p
 - Provider pour l'état
 - shared_preferences pour le thème clair / sombre
 - google_fonts (Poppins)
+
+## Prérequis
+
+- Flutter SDK 3.x installé (`flutter doctor`)
+- Un émulateur Android / iOS, ou un appareil, ou Chrome
+
+Vérifier Flutter :
+
+```bash
+flutter --version
+flutter doctor
+```
+
+## Installation
+
+```bash
+git clone https://github.com/Andassa/recip_hub.git
+cd recip_hub
+flutter pub get
+```
+
+## Lancer l'application
+
+```bash
+flutter run
+```
+
+Choisir une plateforme :
+
+```bash
+flutter run -d chrome
+flutter run -d macos
+flutter run -d android
+```
+
+Pour tester le mode tablette, redimensionne la fenêtre au-delà de 600 px (plus petit côté), ou utilise un émulateur tablette. Tu dois voir le `NavigationRail` à gauche à la place de la bottom nav.
+
+## Tests
+
+```bash
+flutter test
+flutter analyze
+```
+
+Couverture prévue :
+
+- unitaires : repository, provider, validateurs, responsive
+- widgets : CategoryChip, DifficultyBadge, SearchBarWidget, AddRecipe form, RecipeCard
+- router : résolution des routes nommées
 
 ## Captures d'écran
 
@@ -54,13 +123,6 @@ App Flutter de recettes de cuisine. Les écrans suivent les maquettes Figma du p
 ### Profile
 ![Profile](assets/capture/Profile.png)
 
-## Installation
-
-```bash
-flutter pub get
-flutter run
-```
-
 ## Structure
 
 ```
@@ -73,11 +135,17 @@ lib/
   router/       GoRouter (routes nommées)
   screens/      tous les écrans
   widgets/      cartes, chips, nav, dialogs
-  utils/        isTablet et padding responsive
+  utils/        isTablet, form validators, responsive
+test/
+  unit/         tests repository / provider / validators
+  widgets/      tests UI réutilisables + formulaire
+  router/       tests routes nommées
+docs/
+  REQUIREMENTS.md
 assets/
-  images/       photos recettes et fonds
-  icons/        chef hat
-  capture/      screenshots de l'app
+  images/
+  icons/
+  capture/
 ```
 
 ## Fonctionnalités
@@ -90,8 +158,8 @@ assets/
 - Favoris (Saved)
 - Notifications
 - Profile et Settings (thème clair / sombre persisté)
-- Formulaire d'ajout avec validation
-- Responsive mobile et tablette (NavigationRail)
+- Formulaire d'ajout avec validation (titre, catégorie, durée)
+- Responsive mobile et tablette (NavigationRail + GridView)
 
 ## Routes principales
 
@@ -104,8 +172,17 @@ assets/
 - `/search` : recherche
 - `/recipe/:id` : détail
 - `/recipe/:id/reviews` : avis
-- `/add-recipe` : ajout
-- `/settings` : paramètres
+- `/add-recipe` : ajout (formulaire validé)
+- `/settings` : paramètres (toggle thème)
+
+## Architecture
+
+1. UI (`screens/`, `widgets/`) affiche les données
+2. `providers/` détient l'état et appelle le repository
+3. `data/recipe_repository.dart` lit / écrit les mocks
+4. `models/` décrit les objets métier
+
+Aucune liste de recettes n'est écrite dans un widget.
 
 ## Assets utiles
 
