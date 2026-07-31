@@ -63,3 +63,4 @@ assets/
 | Chef hat icon | `assets/icons/chef_hat.svg` |
 | Recipe photos | `assets/images/recipe_1.jpg` … `recipe_4.jpg` |
 | Avatar | `assets/images/avatar.png` |
+# recip_hub
