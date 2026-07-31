@@ -30,14 +30,20 @@ App Flutter de recettes de cuisine. Les écrans suivent les maquettes Figma du p
 ### Filter
 ![Filter](assets/capture/Filter.png)
 
-### Détail recette
+### Détail recette (ingrédients)
 ![Recipe detail](assets/capture/Receip%20Ingredient.png)
 
-### Reviews
-![Reviews](assets/capture/reviews.png)
+### Menu More
+![More](assets/capture/receip%20ingredient/more.png)
+
+### Share
+![Share](assets/capture/receip_ingredient/share.png)
 
 ### Rate
 ![Rate](assets/capture/rate.png)
+
+### Reviews
+![Reviews](assets/capture/reviews.png)
 
 ### Notifications
 ![Notifications](assets/capture/notifications.png)
@@ -87,9 +93,24 @@ assets/
 - Formulaire d'ajout avec validation
 - Responsive mobile et tablette (NavigationRail)
 
+## Routes principales
+
+- `/splash` : splash
+- `/sign-in` / `/sign-up` : auth
+- `/home` : accueil
+- `/favorites` : favoris
+- `/notifications` : notifications
+- `/profile` : profil
+- `/search` : recherche
+- `/recipe/:id` : détail
+- `/recipe/:id/reviews` : avis
+- `/add-recipe` : ajout
+- `/settings` : paramètres
+
 ## Assets utiles
 
 - Fond splash : `assets/images/splash_bg.jpg`
 - Icône chef : `assets/icons/chef_hat.png`
 - Photos recettes : `assets/images/recipe_1.jpg` à `recipe_4.jpg`
 - Avatar : `assets/images/avatar.png`
+- Captures : `assets/capture/`
