@@ -86,10 +86,7 @@ class CustomBottomNav extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: 0,
-            child: _FabButton(onTap: () => onTap(4)),
-          ),
+          Positioned(top: 0, child: _FabButton(onTap: () => onTap(4))),
         ],
       ),
     );
