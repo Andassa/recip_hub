@@ -44,11 +44,15 @@ class RecipeAuthorRow extends StatelessWidget {
                     color: AppColors.primary,
                   ),
                   const SizedBox(width: 2),
-                  Text(
-                    recipe.authorLocation,
-                    style: GoogleFonts.poppins(
-                      fontSize: 11,
-                      color: AppColors.textSecondary,
+                  Expanded(
+                    child: Text(
+                      recipe.authorLocation,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
                 ],
