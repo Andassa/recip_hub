@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 
 /// Barre de recherche stylée + bouton filtre optionnel (maquette Figma).
@@ -10,7 +11,7 @@ class SearchBarWidget extends StatelessWidget {
     this.controller,
     this.onChanged,
     this.onFilterTap,
-    this.hintText = 'Search recipe',
+    this.hintText,
     this.readOnly = false,
     this.onTap,
   });
@@ -18,7 +19,7 @@ class SearchBarWidget extends StatelessWidget {
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onFilterTap;
-  final String hintText;
+  final String? hintText;
   final bool readOnly;
   final VoidCallback? onTap;
 
@@ -34,7 +35,8 @@ class SearchBarWidget extends StatelessWidget {
             onTap: onTap,
             style: GoogleFonts.poppins(fontSize: 12),
             decoration: InputDecoration(
-              hintText: hintText,
+              hintText:
+                  hintText ?? AppLocalizations.of(context).searchRecipeHint,
               hintStyle: GoogleFonts.poppins(
                 color: AppColors.textSecondary,
                 fontSize: 11,

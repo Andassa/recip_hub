@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../core/assets.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../widgets/common/chef_hat_icon.dart';
 import '../widgets/primary_button.dart';
@@ -13,6 +14,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -28,7 +30,7 @@ class SplashScreen extends StatelessWidget {
                   const ChefHatIcon(size: 72),
                   const SizedBox(height: 14),
                   Text(
-                    '100K+ Premium Recipe',
+                    l10n.premiumRecipeCount,
                     style: GoogleFonts.poppins(
                       color: AppColors.white,
                       fontSize: 18,
@@ -37,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    'Get\nCooking',
+                    l10n.getCooking,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: AppColors.white,
@@ -48,7 +50,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Simple way to find Tasty Recipe',
+                    l10n.splashTagline,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: AppColors.white,
@@ -57,7 +59,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 48),
                   PrimaryButton(
-                    label: 'Start Cooking',
+                    label: l10n.startCooking,
                     width: 220,
                     onPressed: () => context.goNamed('signIn'),
                   ),

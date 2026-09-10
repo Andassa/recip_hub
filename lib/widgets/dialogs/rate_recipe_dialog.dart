@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 
 /// Dialog "Rate recipe" (étoiles + Send).
@@ -23,6 +24,7 @@ class _RateRecipeDialogState extends State<RateRecipeDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final canSend = _rating > 0;
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -32,7 +34,7 @@ class _RateRecipeDialogState extends State<RateRecipeDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Rate recipe',
+              l10n.rateRecipe,
               style: GoogleFonts.poppins(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -71,7 +73,7 @@ class _RateRecipeDialogState extends State<RateRecipeDialog> {
                   shape: const StadiumBorder(),
                 ),
                 child: Text(
-                  'Send',
+                  l10n.send,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../models/recipe.dart';
 import '../../providers/recipe_provider.dart';
 import '../../theme/app_colors.dart';
@@ -42,7 +43,7 @@ class RecipeHeroImage extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${recipe.duration} min',
+                    AppLocalizations.of(context).minCount(recipe.duration),
                     style: GoogleFonts.poppins(
                       color: AppColors.white,
                       fontSize: 12,

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
@@ -39,6 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<RecipeProvider>();
+    final l10n = AppLocalizations.of(context);
     final padding = horizontalPadding(context);
     final results = provider.filteredRecipes;
     final tablet = isTablet(context);
@@ -53,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
           },
         ),
         title: Text(
-          'Search recipes',
+          l10n.searchRecipes,
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
@@ -70,14 +72,14 @@ class _SearchScreenState extends State<SearchScreen> {
               },
               onFilterTap: () => showFilterSheet(context),
               hintText: _controller.text.isEmpty
-                  ? 'Search recipe'
+                  ? l10n.searchRecipeHint
                   : _controller.text,
             ),
             const SizedBox(height: 20),
             Row(
               children: [
                 Text(
-                  _hasSubmitted ? 'Search Result' : 'Recent Search',
+                  _hasSubmitted ? l10n.searchResult : l10n.recentSearch,
                   style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -86,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 const Spacer(),
                 if (_hasSubmitted)
                   Text(
-                    '${results.length} results',
+                    l10n.resultsCount(results.length),
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       color: AppColors.textSecondary,
@@ -99,7 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: results.isEmpty
                   ? Center(
                       child: Text(
-                        'Aucun résultat',
+                        l10n.noResults,
                         style: GoogleFonts.poppins(color: AppColors.textMuted),
                       ),
                     )

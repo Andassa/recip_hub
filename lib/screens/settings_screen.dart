@@ -2,24 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
+import '../providers/locale_provider.dart';
 import '../providers/theme_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
 
-/// Écran 5 : Settings. Toggle thème clair / sombre (persisté).
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
+    final localeProvider = context.watch<LocaleProvider>();
+    final l10n = AppLocalizations.of(context);
     final padding = horizontalPadding(context);
+    final languageCode = localeProvider.locale.languageCode;
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'Settings',
+          l10n.settings,
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
@@ -27,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
         padding: EdgeInsets.all(padding),
         children: [
           Text(
-            'Appearance',
+            l10n.appearance,
             style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -45,11 +49,11 @@ class SettingsScreen extends StatelessWidget {
               value: themeProvider.isDark,
               activeThumbColor: AppColors.primary,
               title: Text(
-                'Dark mode',
+                l10n.darkMode,
                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
               ),
               subtitle: Text(
-                'Persisté au redémarrage',
+                l10n.persistedOnRestart,
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: AppColors.textSecondary,
@@ -60,7 +64,48 @@ class SettingsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 28),
           Text(
-            'About',
+            l10n.language,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textMuted,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: AppColors.border),
+            ),
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    l10n.languageEnglish,
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                  ),
+                  trailing: languageCode == 'en'
+                      ? const Icon(Icons.check, color: AppColors.primary)
+                      : null,
+                  onTap: () => localeProvider.setLocale(const Locale('en')),
+                ),
+                ListTile(
+                  title: Text(
+                    l10n.languageFrench,
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                  ),
+                  trailing: languageCode == 'fr'
+                      ? const Icon(Icons.check, color: AppColors.primary)
+                      : null,
+                  onTap: () => localeProvider.setLocale(const Locale('fr')),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 28),
+          Text(
+            l10n.about,
             style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -80,7 +125,7 @@ class SettingsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Recipe Hub',
+                    l10n.appTitle,
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -88,7 +133,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Application de recettes de cuisine.\nVersion 1.0.0',
+                    l10n.aboutBody('1.0.0'),
                     style: GoogleFonts.poppins(
                       fontSize: 13,
                       color: AppColors.textMuted,

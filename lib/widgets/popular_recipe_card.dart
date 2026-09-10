@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/recipe.dart';
 import '../theme/app_colors.dart';
 
@@ -19,6 +20,7 @@ class PopularRecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -60,14 +62,14 @@ class PopularRecipeCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Time',
+                                l10n.timeLabel,
                                 style: GoogleFonts.poppins(
                                   fontSize: 11,
                                   color: AppColors.textSecondary,
                                 ),
                               ),
                               Text(
-                                '${recipe.duration} Mins',
+                                l10n.minsCount(recipe.duration),
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,

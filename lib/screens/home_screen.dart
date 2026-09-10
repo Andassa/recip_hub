@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
+import '../l10n/labels.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
@@ -22,6 +24,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<RecipeProvider>();
+    final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
     // Catégories depuis le repository (via provider), pas hardcodées ici.
     final homeCategories = provider.categories.take(5).toList(growable: false);
@@ -35,7 +38,10 @@ class HomeScreen extends StatelessWidget {
     }
     if (provider.error != null) {
       return Scaffold(
-        body: EmptyState(message: provider.error!, icon: Icons.error_outline),
+        body: EmptyState(
+          message: l10n.loadRecipesFailed,
+          icon: Icons.error_outline,
+        ),
       );
     }
 
@@ -69,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                           itemBuilder: (_, i) {
                             final cat = homeCategories[i];
                             return CategoryChip(
-                              label: cat,
+                              label: categoryLabel(l10n, cat),
                               isSelected: provider.selectedCategory == cat,
                               onTap: () => provider.setCategory(cat),
                             );
@@ -107,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(pad, 24, pad, 12),
                   child: Text(
-                    'New Recipes',
+                    l10n.newRecipes,
                     style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,

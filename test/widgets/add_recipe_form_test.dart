@@ -5,6 +5,7 @@ import 'package:recipe_hub/data/recipe_repository.dart';
 import 'package:recipe_hub/providers/recipe_provider.dart';
 import 'package:recipe_hub/screens/add_recipe_screen.dart';
 
+import '../helpers/l10n_harness.dart';
 import '../helpers/test_recipes.dart';
 
 void main() {
@@ -27,7 +28,7 @@ void main() {
     await tester.pumpWidget(
       ChangeNotifierProvider.value(
         value: provider,
-        child: const MaterialApp(home: AddRecipeScreen()),
+        child: wrapWithL10n(const AddRecipeScreen()),
       ),
     );
 

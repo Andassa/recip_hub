@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/assets.dart';
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 
 /// En-tête Home : greeting + avatar.
@@ -10,6 +11,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Row(
       children: [
         Expanded(
@@ -17,14 +19,14 @@ class HomeHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hello Jega',
+                l10n.helloJega,
                 style: GoogleFonts.poppins(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                'What are you cooking today?',
+                l10n.whatAreYouCooking,
                 style: GoogleFonts.poppins(
                   fontSize: 11,
                   color: AppColors.textSecondary,

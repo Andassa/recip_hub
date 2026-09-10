@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../core/assets.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/recipe_provider.dart';
 import '../providers/theme_provider.dart';
 import '../theme/app_colors.dart';
@@ -18,13 +19,14 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recipes = context.watch<RecipeProvider>().allRecipes.take(4).toList();
+    final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'Profile',
+          l10n.profile,
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         actions: [
@@ -48,9 +50,9 @@ class ProfileScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _stat('Recipe', '${recipes.length}'),
-                    _stat('Followers', '2.5M'),
-                    _stat('Following', '259'),
+                    _stat(l10n.statRecipe, '${recipes.length}'),
+                    _stat(l10n.statFollowers, '2.5M'),
+                    _stat(l10n.statFollowing, '259'),
                   ],
                 ),
               ),
@@ -69,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
               const ChefHatIcon(size: 16),
               const SizedBox(width: 4),
               Text(
-                'Chef',
+                l10n.chefRole,
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: AppColors.textMuted,
@@ -79,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           Text(
-            'Private Chef. Passionate about food and life 🥘🥣🍝🍱.',
+            l10n.profileBio,
             style: GoogleFonts.poppins(
               fontSize: 12,
               color: AppColors.textMuted,
@@ -89,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
             title: Text(
-              'Dark mode',
+              l10n.darkMode,
               style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
             ),
             value: context.watch<ThemeProvider>().isDark,
@@ -98,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'My Recipes',
+            l10n.myRecipes,
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w600,

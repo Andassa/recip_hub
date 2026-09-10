@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 
 /// Séparateur "Or Sign in With".
 class OrDivider extends StatelessWidget {
-  const OrDivider({super.key, this.text = 'Or Sign in With'});
+  const OrDivider({super.key, this.text});
 
-  final String text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class OrDivider extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Text(
-            text,
+            text ?? AppLocalizations.of(context).orSignInWith,
             style: GoogleFonts.poppins(
               fontSize: 11,
               color: AppColors.textSecondary,

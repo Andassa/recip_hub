@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../widgets/common/labeled_field.dart';
 import '../widgets/common/or_divider.dart';
 import '../widgets/common/social_login_row.dart';
 import '../widgets/primary_button.dart';
 
-/// Create account Figma.
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -34,11 +34,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _submit() {
+    final l10n = AppLocalizations.of(context);
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (!_accepted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please accept terms & conditions')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.acceptTermsRequired)));
       return;
     }
     context.goNamed('home');
@@ -46,6 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -56,14 +58,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Create an account',
+                  l10n.createAccount,
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  "Let's help you set up your account,\nit won't take long.",
+                  l10n.signUpSubtitle,
                   style: GoogleFonts.poppins(
                     fontSize: 11,
                     color: AppColors.textMuted,
@@ -71,39 +73,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 20),
                 LabeledField(
-                  label: 'Name',
-                  hint: 'Enter Name',
+                  label: l10n.name,
+                  hint: l10n.enterName,
                   controller: _name,
                   validator: (v) => (v == null || v.trim().length < 2)
-                      ? 'Name required'
+                      ? l10n.nameRequired
                       : null,
                 ),
                 LabeledField(
-                  label: 'Email',
-                  hint: 'Enter Email',
+                  label: l10n.email,
+                  hint: l10n.enterEmail,
                   controller: _email,
                   keyboardType: TextInputType.emailAddress,
                   validator: (v) {
-                    if (v == null || v.trim().isEmpty) return 'Email required';
-                    if (!v.contains('@')) return 'Invalid email';
+                    if (v == null || v.trim().isEmpty) {
+                      return l10n.emailRequired;
+                    }
+                    if (!v.contains('@')) {
+                      return l10n.invalidEmail;
+                    }
                     return null;
                   },
                 ),
                 LabeledField(
-                  label: 'Password',
-                  hint: 'Enter Password',
+                  label: l10n.password,
+                  hint: l10n.enterPassword,
                   controller: _password,
                   obscure: true,
-                  validator: (v) =>
-                      (v == null || v.length < 6) ? 'Min 6 characters' : null,
+                  validator: (v) => (v == null || v.length < 6)
+                      ? l10n.minSixCharacters
+                      : null,
                 ),
                 LabeledField(
-                  label: 'Confirm Password',
-                  hint: 'Retype Password',
+                  label: l10n.confirmPassword,
+                  hint: l10n.retypePassword,
                   controller: _confirm,
                   obscure: true,
                   validator: (v) =>
-                      v != _password.text ? 'Passwords do not match' : null,
+                      v != _password.text ? l10n.passwordsDoNotMatch : null,
                 ),
                 Row(
                   children: [
@@ -114,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       activeColor: AppColors.accent,
                     ),
                     Text(
-                      'Accept terms & Condition',
+                      l10n.acceptTerms,
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: AppColors.accent,
@@ -122,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ],
                 ),
-                PrimaryButton(label: 'Sign Up', onPressed: _submit),
+                PrimaryButton(label: l10n.signUpButton, onPressed: _submit),
                 const SizedBox(height: 20),
                 const OrDivider(),
                 const SizedBox(height: 16),
@@ -135,9 +142,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       TextSpan(
                         style: GoogleFonts.poppins(fontSize: 12),
                         children: [
-                          const TextSpan(text: 'Already a member? '),
+                          TextSpan(text: l10n.alreadyMember),
                           TextSpan(
-                            text: 'Sign In',
+                            text: l10n.signIn,
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w600,
                               color: AppColors.accent,

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:recipe_hub/widgets/search_bar_widget.dart';
 
+import '../helpers/l10n_harness.dart';
+
 void main() {
   testWidgets('SearchBarWidget calls onChanged when typing', (tester) async {
     String? value;
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: SearchBarWidget(onChanged: (v) => value = v),
-        ),
+      wrapWithL10n(
+        Scaffold(body: SearchBarWidget(onChanged: (v) => value = v)),
       ),
     );
 
@@ -23,10 +23,8 @@ void main() {
   ) async {
     var filtered = false;
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: SearchBarWidget(onFilterTap: () => filtered = true),
-        ),
+      wrapWithL10n(
+        Scaffold(body: SearchBarWidget(onFilterTap: () => filtered = true)),
       ),
     );
 

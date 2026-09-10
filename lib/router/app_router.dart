@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../l10n/app_localizations.dart';
+
 import '../screens/add_recipe_screen.dart';
 import '../screens/favorites_screen.dart';
 import '../screens/home_screen.dart';
@@ -105,6 +107,9 @@ final GoRouter appRouter = GoRouter(
       builder: (_, _) => const SettingsScreen(),
     ),
   ],
-  errorBuilder: (_, state) =>
-      Scaffold(body: Center(child: Text('Page not found: ${state.uri}'))),
+  errorBuilder: (context, state) => Scaffold(
+    body: Center(
+      child: Text(AppLocalizations.of(context).pageNotFound('${state.uri}')),
+    ),
+  ),
 );

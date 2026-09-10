@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/recipe.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
@@ -50,9 +51,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       case 'rate':
         final rating = await showRateRecipeDialog(context);
         if (rating != null && mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Thanks for rating $rating★')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                AppLocalizations.of(context).thanksForRating(rating),
+              ),
+            ),
+          );
         }
       case 'review':
         context.pushNamed('reviews', pathParameters: {'id': recipe.id});
@@ -64,13 +69,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final recipe = context.watch<RecipeProvider>().getById(widget.recipeId);
+    final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
     if (recipe == null) {
       return Scaffold(
         appBar: AppBar(
           leading: BackButton(onPressed: () => context.goNamed('home')),
         ),
-        body: const Center(child: Text('Recipe not found')),
+        body: Center(child: Text(l10n.recipeNotFound)),
       );
     }
 
@@ -113,7 +119,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       ),
                     ),
                     Text(
-                      '(${recipe.reviewCount} Reviews)',
+                      l10n.reviewsCount(recipe.reviewCount),
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: AppColors.textSecondary,
@@ -131,8 +137,11 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     const SizedBox(height: 16),
                     Text(
                       _tab == 0
-                          ? '${recipe.servings} serve · ${recipe.ingredients.length} Items'
-                          : '${recipe.steps.length} Steps',
+                          ? l10n.serveItems(
+                              recipe.servings,
+                              recipe.ingredients.length,
+                            )
+                          : l10n.stepsCount(recipe.steps.length),
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: AppColors.textSecondary,

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
@@ -15,6 +16,7 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<RecipeProvider>();
+    final l10n = AppLocalizations.of(context);
     final favorites = provider.favorites;
     final padding = horizontalPadding(context);
     // Responsive : ListView (mobile) / GridView (tablette).
@@ -25,7 +27,7 @@ class FavoritesScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'Saved recipes',
+          l10n.savedRecipes,
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
@@ -45,7 +47,7 @@ class FavoritesScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'No saved recipes yet',
+                    l10n.noSavedRecipes,
                     style: GoogleFonts.poppins(
                       color: AppColors.textMuted,
                       fontSize: 15,

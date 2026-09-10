@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../l10n/app_localizations.dart';
 import '../utils/responsive.dart';
 import '../widgets/custom_bottom_nav.dart';
 
-/// Shell de navigation :
-/// - mobile : CustomBottomNav (Home / Saved / FAB Add / Alerts / Profile)
-/// - tablette : NavigationRail + FloatingActionButton
 class ShellScreen extends StatelessWidget {
   const ShellScreen({super.key, required this.navigationShell});
 
@@ -30,8 +28,8 @@ class ShellScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final index = navigationShell.currentIndex;
+    final l10n = AppLocalizations.of(context);
 
-    // Responsive : NavigationRail dès que shortestSide >= 600.
     if (isTablet(context)) {
       return Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -44,26 +42,26 @@ class ShellScreen extends StatelessWidget {
               selectedIndex: index,
               onDestinationSelected: navigationShell.goBranch,
               labelType: NavigationRailLabelType.all,
-              destinations: const [
+              destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home),
-                  label: Text('Home'),
+                  icon: const Icon(Icons.home_outlined),
+                  selectedIcon: const Icon(Icons.home),
+                  label: Text(l10n.navHome),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.bookmark_border),
-                  selectedIcon: Icon(Icons.bookmark),
-                  label: Text('Saved'),
+                  icon: const Icon(Icons.bookmark_border),
+                  selectedIcon: const Icon(Icons.bookmark),
+                  label: Text(l10n.navSaved),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.notifications_none),
-                  selectedIcon: Icon(Icons.notifications),
-                  label: Text('Alerts'),
+                  icon: const Icon(Icons.notifications_none),
+                  selectedIcon: const Icon(Icons.notifications),
+                  label: Text(l10n.navAlerts),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.person_outline),
-                  selectedIcon: Icon(Icons.person),
-                  label: Text('Profile'),
+                  icon: const Icon(Icons.person_outline),
+                  selectedIcon: const Icon(Icons.person),
+                  label: Text(l10n.navProfile),
                 ),
               ],
             ),

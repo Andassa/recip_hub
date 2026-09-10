@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../models/recipe.dart';
 import '../../theme/app_colors.dart';
 
@@ -12,6 +13,7 @@ class RecipeAuthorRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Row(
       children: [
         CircleAvatar(
@@ -53,7 +55,7 @@ class RecipeAuthorRow extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Following ${recipe.authorName}')),
+              SnackBar(content: Text(l10n.followingAuthor(recipe.authorName))),
             );
           },
           style: ElevatedButton.styleFrom(
@@ -66,7 +68,7 @@ class RecipeAuthorRow extends StatelessWidget {
             ),
           ),
           child: Text(
-            'Follow',
+            l10n.follow,
             style: GoogleFonts.poppins(
               fontSize: 12,
               fontWeight: FontWeight.w600,

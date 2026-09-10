@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/recipe.dart';
 import '../theme/app_colors.dart';
 
@@ -13,6 +14,7 @@ class NewRecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -70,7 +72,7 @@ class NewRecipeCard extends StatelessWidget {
                       const SizedBox(width: 6),
                       Expanded(
                         child: Text(
-                          'By ${recipe.authorName}',
+                          l10n.byAuthor(recipe.authorName),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.poppins(
@@ -117,7 +119,7 @@ class NewRecipeCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${recipe.duration} mins',
+                    l10n.minsLower(recipe.duration),
                     style: GoogleFonts.poppins(
                       fontSize: 11,
                       color: AppColors.textSecondary,

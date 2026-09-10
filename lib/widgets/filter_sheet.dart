@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
+import '../l10n/labels.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
 import 'category_chip.dart';
@@ -55,6 +57,7 @@ class _FilterSheetState extends State<FilterSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.fromLTRB(30, 24, 30, 32),
       decoration: const BoxDecoration(
@@ -69,7 +72,7 @@ class _FilterSheetState extends State<FilterSheet> {
           children: [
             Center(
               child: Text(
-                'Filter Search',
+                l10n.filterSearch,
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -77,7 +80,7 @@ class _FilterSheetState extends State<FilterSheet> {
               ),
             ),
             const SizedBox(height: 24),
-            _sectionTitle('Time'),
+            _sectionTitle(l10n.timeLabel),
             const SizedBox(height: 12),
             Wrap(
               spacing: 10,
@@ -85,7 +88,7 @@ class _FilterSheetState extends State<FilterSheet> {
               children: _times
                   .map(
                     (t) => CategoryChip(
-                      label: t,
+                      label: timeFilterLabel(l10n, t),
                       isSelected: _time == t,
                       onTap: () => setState(() => _time = t),
                     ),
@@ -93,7 +96,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   .toList(),
             ),
             const SizedBox(height: 20),
-            _sectionTitle('Rate'),
+            _sectionTitle(l10n.rateLabel),
             const SizedBox(height: 12),
             Wrap(
               spacing: 10,
@@ -110,7 +113,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   .toList(),
             ),
             const SizedBox(height: 20),
-            _sectionTitle('Category'),
+            _sectionTitle(l10n.categoryLabel),
             const SizedBox(height: 12),
             Wrap(
               spacing: 10,
@@ -118,7 +121,7 @@ class _FilterSheetState extends State<FilterSheet> {
               children: _categories
                   .map(
                     (c) => CategoryChip(
-                      label: c,
+                      label: categoryLabel(l10n, c),
                       showStar: c == 'Dinner',
                       isSelected: _category == c,
                       onTap: () => setState(() => _category = c),
@@ -128,7 +131,7 @@ class _FilterSheetState extends State<FilterSheet> {
             ),
             const SizedBox(height: 28),
             PrimaryButton(
-              label: 'Filter',
+              label: l10n.filterButton,
               showArrow: false,
               borderRadius: 10,
               onPressed: () {

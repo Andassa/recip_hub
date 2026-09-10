@@ -5,6 +5,7 @@ import 'package:recipe_hub/widgets/difficulty_badge.dart';
 import 'package:recipe_hub/widgets/recipe_card.dart';
 import 'package:recipe_hub/widgets/search_bar_widget.dart';
 
+import '../helpers/l10n_harness.dart';
 import '../helpers/test_recipes.dart';
 
 /// Vérifie la présence d'au moins 3 widgets réutilisables dans widgets/.
@@ -16,8 +17,8 @@ void main() {
     var cardTapped = false;
 
     await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
+      wrapWithL10n(
+        Scaffold(
           body: SingleChildScrollView(
             child: Column(
               children: [

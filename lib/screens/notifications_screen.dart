@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../data/mock_notifications.dart';
+import '../l10n/app_localizations.dart';
+import '../l10n/labels.dart';
 import '../models/app_notification.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
 import '../widgets/category_chip.dart';
 import '../widgets/notifications/notification_card.dart';
 
-/// Écran Notifications Figma (All / Read / Unread).
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
 
@@ -29,6 +30,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
     final items = _filtered;
     final groups = <String, List<AppNotification>>{};
@@ -40,7 +42,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'Notifications',
+          l10n.notifications,
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
@@ -52,7 +54,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               return Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: CategoryChip(
-                  label: f,
+                  label: notificationFilterLabel(l10n, f),
                   isSelected: _filter == f,
                   onTap: () => setState(() => _filter = f),
                 ),
@@ -65,7 +67,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               padding: const EdgeInsets.only(top: 40),
               child: Center(
                 child: Text(
-                  'No notifications',
+                  l10n.noNotifications,
                   style: GoogleFonts.poppins(color: AppColors.textMuted),
                 ),
               ),

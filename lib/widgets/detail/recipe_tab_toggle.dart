@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 
 /// Toggle Ingredients / Procedure (libellé Figma volontairement conservé).
@@ -16,11 +17,12 @@ class RecipeTabToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Row(
       children: [
-        Expanded(child: _btn('Ingrident', 0)),
+        Expanded(child: _btn(l10n.ingredientTab, 0)),
         const SizedBox(width: 12),
-        Expanded(child: _btn('Procedure', 1)),
+        Expanded(child: _btn(l10n.procedureTab, 1)),
       ],
     );
   }

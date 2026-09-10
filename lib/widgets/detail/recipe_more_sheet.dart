@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 
 /// Bottom sheet menu More (Share / Rate / Review / Unsave).
@@ -11,18 +12,19 @@ class RecipeMoreSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _item(context, 'share', Icons.share_outlined, 'share'),
-          _item(context, 'rate', Icons.star_border, 'Rate Recipe'),
-          _item(context, 'review', Icons.chat_bubble_outline, 'Review'),
+          _item(context, 'share', Icons.share_outlined, l10n.share),
+          _item(context, 'rate', Icons.star_border, l10n.rateRecipe),
+          _item(context, 'review', Icons.chat_bubble_outline, l10n.review),
           _item(
             context,
             'unsave',
             isFavorite ? Icons.bookmark : Icons.bookmark_border,
-            isFavorite ? 'Unsave' : 'Save',
+            isFavorite ? l10n.unsave : l10n.save,
           ),
           const SizedBox(height: 8),
         ],

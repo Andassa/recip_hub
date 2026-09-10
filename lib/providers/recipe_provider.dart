@@ -45,7 +45,7 @@ class RecipeProvider extends ChangeNotifier {
       _allRecipes = List<Recipe>.from(await _repository.getAll());
       _applyFilters();
     } catch (e) {
-      _error = 'Impossible de charger les recettes.';
+      _error = 'load_failed';
     } finally {
       _isLoading = false;
       notifyListeners();

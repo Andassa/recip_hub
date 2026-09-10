@@ -1,48 +1,44 @@
-/// Validateurs réutilisables pour les formulaires (Add Recipe, Auth).
+import '../l10n/app_localizations.dart';
+
 abstract final class FormValidators {
-  /// Titre obligatoire, minimum 3 caractères.
-  static String? requiredTitle(String? value) {
+  static String? requiredTitle(String? value, AppLocalizations l10n) {
     if (value == null || value.trim().length < 3) {
-      return 'Title must be at least 3 characters';
+      return l10n.titleMinLength;
     }
     return null;
   }
 
-  /// Catégorie obligatoire (dropdown).
-  static String? requiredCategory(String? value) {
+  static String? requiredCategory(String? value, AppLocalizations l10n) {
     if (value == null || value.trim().isEmpty) {
-      return 'Category is required';
+      return l10n.categoryRequired;
     }
     return null;
   }
 
-  /// Durée obligatoire, nombre entier positif (minutes).
-  static String? positiveDuration(String? value) {
+  static String? positiveDuration(String? value, AppLocalizations l10n) {
     if (value == null || value.trim().isEmpty) {
-      return 'Duration is required';
+      return l10n.durationRequired;
     }
     final n = int.tryParse(value.trim());
     if (n == null || n <= 0) {
-      return 'Enter a positive number';
+      return l10n.enterPositiveNumber;
     }
     return null;
   }
 
-  /// Email simple pour Sign In / Sign Up.
-  static String? email(String? value) {
+  static String? email(String? value, AppLocalizations l10n) {
     if (value == null || value.trim().isEmpty) {
-      return 'Email is required';
+      return l10n.emailIsRequired;
     }
     if (!value.contains('@')) {
-      return 'Enter a valid email';
+      return l10n.enterValidEmail;
     }
     return null;
   }
 
-  /// Mot de passe minimum 6 caractères.
-  static String? password(String? value) {
+  static String? password(String? value, AppLocalizations l10n) {
     if (value == null || value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return l10n.passwordMinLength;
     }
     return null;
   }

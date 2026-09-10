@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../data/mock_reviews.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
@@ -31,6 +32,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
   @override
   Widget build(BuildContext context) {
     final recipe = context.watch<RecipeProvider>().getById(widget.recipeId);
+    final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
     final saved = context.watch<RecipeProvider>().favorites.length;
 
@@ -50,7 +52,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
           },
         ),
         title: Text(
-          'Reviews',
+          l10n.reviews,
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
@@ -60,7 +62,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
           Row(
             children: [
               Text(
-                '${mockReviews.length} Comments',
+                l10n.commentsCount(mockReviews.length),
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: AppColors.textMuted,
@@ -68,7 +70,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
               ),
               const Spacer(),
               Text(
-                '$saved Saved',
+                l10n.savedCount(saved),
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: AppColors.textMuted,
@@ -78,7 +80,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Leave a comment',
+            l10n.leaveAComment,
             style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -87,12 +89,16 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
           const SizedBox(height: 8),
           _CommentField(
             controller: _controller,
+            sendLabel: l10n.send,
+            hintText: l10n.saySomething,
             onSend: () {
               if (_controller.text.trim().isEmpty) return;
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    'Comment sent${recipe != null ? ' on ${recipe.title}' : ''}',
+                    recipe != null
+                        ? l10n.commentSentOn(recipe.title)
+                        : l10n.commentSent,
                   ),
                 ),
               );
@@ -108,17 +114,24 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
 }
 
 class _CommentField extends StatelessWidget {
-  const _CommentField({required this.controller, required this.onSend});
+  const _CommentField({
+    required this.controller,
+    required this.onSend,
+    required this.sendLabel,
+    required this.hintText,
+  });
 
   final TextEditingController controller;
   final VoidCallback onSend;
+  final String sendLabel;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        hintText: 'Say something...',
+        hintText: hintText,
         suffixIcon: Padding(
           padding: const EdgeInsets.all(6),
           child: ElevatedButton(
@@ -133,7 +146,7 @@ class _CommentField extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Send',
+              sendLabel,
               style: GoogleFonts.poppins(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,

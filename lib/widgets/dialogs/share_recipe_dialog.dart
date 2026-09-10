@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
 
 /// Dialog "Recipe Link" — partage d'une recette.
@@ -19,6 +20,7 @@ class ShareRecipeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final link = 'app.Recipe.co/$slug';
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -33,7 +35,7 @@ class ShareRecipeDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Recipe Link',
+                    l10n.recipeLink,
                     style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -47,7 +49,7 @@ class ShareRecipeDialog extends StatelessWidget {
               ],
             ),
             Text(
-              'Copy recipe link and share your recipe link with friends and family.',
+              l10n.shareRecipeBody,
               style: GoogleFonts.poppins(
                 fontSize: 12,
                 color: AppColors.textMuted,
@@ -94,9 +96,11 @@ class _LinkRow extends StatelessWidget {
               await Clipboard.setData(ClipboardData(text: link));
               if (!context.mounted) return;
               Navigator.pop(context);
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(const SnackBar(content: Text('Link copied!')));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(AppLocalizations.of(context).linkCopied),
+                ),
+              );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
@@ -109,7 +113,7 @@ class _LinkRow extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Copy Link',
+              AppLocalizations.of(context).copyLink,
               style: GoogleFonts.poppins(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,

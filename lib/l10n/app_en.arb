@@ -1,0 +1,223 @@
+{
+  "@@locale": "en",
+  "appTitle": "Recipe Hub",
+  "pageNotFound": "Page not found: {uri}",
+  "@pageNotFound": {
+    "placeholders": {
+      "uri": {"type": "String"}
+    }
+  },
+  "loadRecipesFailed": "Could not load recipes.",
+  "premiumRecipeCount": "100K+ Premium Recipe",
+  "getCooking": "Get\nCooking",
+  "splashTagline": "Simple way to find Tasty Recipe",
+  "startCooking": "Start Cooking",
+  "helloComma": "Hello,",
+  "welcomeBack": "Welcome Back!",
+  "email": "Email",
+  "enterEmail": "Enter Email",
+  "enterPassword": "Enter Password",
+  "forgotPassword": "Forgot Password?",
+  "signIn": "Sign In",
+  "dontHaveAccount": "Don't have an account? ",
+  "signUp": "Sign up",
+  "emailRequired": "Email required",
+  "invalidEmail": "Invalid email",
+  "minSixCharacters": "Min 6 characters",
+  "createAccount": "Create an account",
+  "signUpSubtitle": "Let's help you set up your account,\nit won't take long.",
+  "name": "Name",
+  "enterName": "Enter Name",
+  "nameRequired": "Name required",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "retypePassword": "Retype Password",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "acceptTermsRequired": "Please accept terms & conditions",
+  "acceptTerms": "Accept terms & Condition",
+  "signUpButton": "Sign Up",
+  "alreadyMember": "Already a member? ",
+  "orSignInWith": "Or Sign in With",
+  "navHome": "Home",
+  "navSaved": "Saved",
+  "navAlerts": "Alerts",
+  "navProfile": "Profile",
+  "newRecipes": "New Recipes",
+  "savedRecipes": "Saved recipes",
+  "noSavedRecipes": "No saved recipes yet",
+  "notifications": "Notifications",
+  "filterAll": "All",
+  "filterRead": "Read",
+  "filterUnread": "Unread",
+  "noNotifications": "No notifications",
+  "profile": "Profile",
+  "statRecipe": "Recipe",
+  "statFollowers": "Followers",
+  "statFollowing": "Following",
+  "chefRole": "Chef",
+  "profileBio": "Private Chef. Passionate about food and life.",
+  "darkMode": "Dark mode",
+  "myRecipes": "My Recipes",
+  "searchRecipes": "Search recipes",
+  "searchRecipeHint": "Search recipe",
+  "searchResult": "Search Result",
+  "recentSearch": "Recent Search",
+  "resultsCount": "{count} results",
+  "@resultsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noResults": "No results",
+  "recipeNotFound": "Recipe not found",
+  "reviewsCount": "({count} Reviews)",
+  "@reviewsCount": {
+    "placeholders": {
+      "count": {"type": "String"}
+    }
+  },
+  "serveItems": "{servings} serve · {count} Items",
+  "@serveItems": {
+    "placeholders": {
+      "servings": {"type": "int"},
+      "count": {"type": "int"}
+    }
+  },
+  "stepsCount": "{count} Steps",
+  "@stepsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "thanksForRating": "Thanks for rating {rating}★",
+  "@thanksForRating": {
+    "placeholders": {
+      "rating": {"type": "int"}
+    }
+  },
+  "reviews": "Reviews",
+  "commentsCount": "{count} Comments",
+  "@commentsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "savedCount": "{count} Saved",
+  "@savedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "leaveAComment": "Leave a comment",
+  "saySomething": "Say something...",
+  "send": "Send",
+  "commentSent": "Comment sent",
+  "commentSentOn": "Comment sent on {title}",
+  "@commentSentOn": {
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+  "recipeAdded": "Recipe added successfully!",
+  "addRecipe": "Add Recipe",
+  "titleLabel": "Title",
+  "recipeTitleHint": "Recipe title",
+  "categoryLabel": "Category",
+  "selectCategory": "Select category",
+  "durationMinutes": "Duration (minutes)",
+  "durationHint": "e.g. 20",
+  "difficultyLabel": "Difficulty",
+  "difficultyEasy": "Easy",
+  "difficultyMedium": "Medium",
+  "difficultyHard": "Hard",
+  "descriptionSteps": "Description / Steps",
+  "descriptionHint": "Describe the recipe or steps (one per line)",
+  "ingredientsLabel": "Ingredients",
+  "ingredientsHint": "One ingredient per line",
+  "saveRecipe": "Save Recipe",
+  "settings": "Settings",
+  "appearance": "Appearance",
+  "persistedOnRestart": "Saved across restarts",
+  "language": "Language",
+  "languageEnglish": "English",
+  "languageFrench": "Français",
+  "about": "About",
+  "aboutBody": "Cooking recipe app.\nVersion {version}",
+  "@aboutBody": {
+    "placeholders": {
+      "version": {"type": "String"}
+    }
+  },
+  "helloJega": "Hello Jega",
+  "whatAreYouCooking": "What are you cooking today?",
+  "filterSearch": "Filter Search",
+  "timeLabel": "Time",
+  "rateLabel": "Rate",
+  "filterButton": "Filter",
+  "timeAll": "All",
+  "timeNewest": "Newest",
+  "timeOldest": "Oldest",
+  "timePopularity": "Popularity",
+  "minsCount": "{duration} Mins",
+  "@minsCount": {
+    "placeholders": {
+      "duration": {"type": "int"}
+    }
+  },
+  "minCount": "{duration} min",
+  "@minCount": {
+    "placeholders": {
+      "duration": {"type": "int"}
+    }
+  },
+  "minsLower": "{duration} mins",
+  "@minsLower": {
+    "placeholders": {
+      "duration": {"type": "int"}
+    }
+  },
+  "byAuthor": "By {name}",
+  "@byAuthor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "ingredientTab": "Ingredient",
+  "procedureTab": "Procedure",
+  "share": "Share",
+  "rateRecipe": "Rate Recipe",
+  "review": "Review",
+  "unsave": "Unsave",
+  "save": "Save",
+  "follow": "Follow",
+  "followingAuthor": "Following {name}",
+  "@followingAuthor": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "recipeLink": "Recipe Link",
+  "shareRecipeBody": "Copy recipe link and share your recipe link with friends and family.",
+  "linkCopied": "Link copied!",
+  "copyLink": "Copy Link",
+  "titleMinLength": "Title must be at least 3 characters",
+  "categoryRequired": "Category is required",
+  "durationRequired": "Duration is required",
+  "enterPositiveNumber": "Enter a positive number",
+  "emailIsRequired": "Email is required",
+  "enterValidEmail": "Enter a valid email",
+  "passwordMinLength": "Password must be at least 6 characters",
+  "categoryAll": "All",
+  "categoryIndian": "Indian",
+  "categoryItalian": "Italian",
+  "categoryAsian": "Asian",
+  "categoryChinese": "Chinese",
+  "categoryBreakfast": "Breakfast",
+  "categoryDinner": "Dinner",
+  "categoryLocalDish": "Local Dish",
+  "categoryFruit": "Fruit",
+  "categoryVegetables": "Vegetables",
+  "categoryLunch": "Lunch",
+  "categoryCereal": "Cereal",
+  "categorySpanish": "Spanish"
+}
