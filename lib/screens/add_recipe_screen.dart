@@ -72,6 +72,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          tooltip: l10n.semanticClose,
           icon: const Icon(Icons.close),
           onPressed: () => context.goNamed('home'),
         ),

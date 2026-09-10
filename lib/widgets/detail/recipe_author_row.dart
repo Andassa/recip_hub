@@ -16,9 +16,13 @@ class RecipeAuthorRow extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     return Row(
       children: [
-        CircleAvatar(
-          radius: 22,
-          backgroundImage: AssetImage(recipe.authorImageUrl),
+        Semantics(
+          label: l10n.semanticAvatar,
+          image: true,
+          child: CircleAvatar(
+            radius: 22,
+            backgroundImage: AssetImage(recipe.authorImageUrl),
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(

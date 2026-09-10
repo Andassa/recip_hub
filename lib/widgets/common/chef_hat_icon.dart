@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/assets.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Icône toque (PNG extrait du SVG Figma — évite le bug colorFilter).
 class ChefHatIcon extends StatelessWidget {
@@ -15,6 +16,7 @@ class ChefHatIcon extends StatelessWidget {
       width: size,
       height: size,
       fit: BoxFit.contain,
+      semanticLabel: AppLocalizations.of(context).semanticChefHat,
     );
   }
 }

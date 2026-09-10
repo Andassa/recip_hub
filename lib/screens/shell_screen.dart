@@ -33,6 +33,7 @@ class ShellScreen extends StatelessWidget {
     if (isTablet(context)) {
       return Scaffold(
         floatingActionButton: FloatingActionButton(
+          tooltip: l10n.semanticAddRecipe,
           onPressed: () => context.goNamed('addRecipe'),
           child: const Icon(Icons.add),
         ),

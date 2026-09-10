@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../models/review.dart';
 import '../../theme/app_colors.dart';
 
@@ -17,9 +18,13 @@ class ReviewTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            radius: 22,
-            backgroundImage: AssetImage(review.authorImageUrl),
+          Semantics(
+            label: AppLocalizations.of(context).semanticAvatar,
+            image: true,
+            child: CircleAvatar(
+              radius: 22,
+              backgroundImage: AssetImage(review.authorImageUrl),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(

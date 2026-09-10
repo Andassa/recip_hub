@@ -471,4 +471,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get categorySpanish => 'Spanish';
+
+  @override
+  String get semanticNavHome => 'Home';
+
+  @override
+  String get semanticNavSaved => 'Saved recipes';
+
+  @override
+  String get semanticNavAlerts => 'Notifications';
+
+  @override
+  String get semanticNavProfile => 'Profile';
+
+  @override
+  String get semanticAddRecipe => 'Add recipe';
+
+  @override
+  String get semanticFilters => 'Filters';
+
+  @override
+  String get semanticAddFavorite => 'Add to favorites';
+
+  @override
+  String get semanticRemoveFavorite => 'Remove from favorites';
+
+  @override
+  String get semanticBack => 'Back';
+
+  @override
+  String get semanticMore => 'More options';
+
+  @override
+  String get semanticSettings => 'Settings';
+
+  @override
+  String get semanticClose => 'Close';
+
+  @override
+  String semanticStarRating(int count) {
+    return '$count stars';
+  }
+
+  @override
+  String get semanticSplashImage => 'Cooking background';
+
+  @override
+  String semanticRecipeImage(String title) {
+    return 'Photo of $title';
+  }
+
+  @override
+  String get semanticAvatar => 'Profile photo';
+
+  @override
+  String get semanticChefHat => 'Chef hat';
+
+  @override
+  String semanticIngredientImage(String name) {
+    return 'Photo of $name';
+  }
 }

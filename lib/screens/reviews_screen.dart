@@ -39,6 +39,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          tooltip: l10n.semanticBack,
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             if (context.canPop()) {

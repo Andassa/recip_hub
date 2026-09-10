@@ -19,7 +19,11 @@ class SplashScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(AppAssets.splashBg, fit: BoxFit.cover),
+          Image.asset(
+            AppAssets.splashBg,
+            fit: BoxFit.cover,
+            semanticLabel: l10n.semanticSplashImage,
+          ),
           const _DarkOverlay(),
           SafeArea(
             child: Padding(

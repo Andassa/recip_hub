@@ -81,19 +81,24 @@ class PopularRecipeCard extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: onFavoriteTap,
-                          child: Container(
-                            width: 24,
-                            height: 24,
-                            decoration: const BoxDecoration(
-                              color: AppColors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              recipe.isFavorite
-                                  ? Icons.bookmark
-                                  : Icons.bookmark_border,
-                              size: 14,
-                              color: AppColors.primary,
+                          child: Tooltip(
+                            message: recipe.isFavorite
+                                ? l10n.semanticRemoveFavorite
+                                : l10n.semanticAddFavorite,
+                            child: Container(
+                              width: 24,
+                              height: 24,
+                              decoration: const BoxDecoration(
+                                color: AppColors.white,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                recipe.isFavorite
+                                    ? Icons.bookmark
+                                    : Icons.bookmark_border,
+                                size: 14,
+                                color: AppColors.primary,
+                              ),
                             ),
                           ),
                         ),
@@ -130,6 +135,9 @@ class PopularRecipeCard extends StatelessWidget {
                           child: Image.asset(
                             recipe.imageUrl,
                             fit: BoxFit.cover,
+                            semanticLabel: l10n.semanticRecipeImage(
+                              recipe.title,
+                            ),
                           ),
                         ),
                       ),

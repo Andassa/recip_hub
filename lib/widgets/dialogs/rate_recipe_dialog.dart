@@ -46,6 +46,7 @@ class _RateRecipeDialogState extends State<RateRecipeDialog> {
               children: List.generate(5, (i) {
                 final selected = i < _rating;
                 return IconButton(
+                  tooltip: l10n.semanticStarRating(i + 1),
                   onPressed: () => setState(() => _rating = i + 1),
                   icon: Icon(
                     selected ? Icons.star : Icons.star_border,

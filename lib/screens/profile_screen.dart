@@ -31,6 +31,7 @@ class ProfileScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
+            tooltip: l10n.semanticSettings,
             icon: const Icon(Icons.more_horiz),
             onPressed: () => context.goNamed('settings'),
           ),
@@ -41,9 +42,13 @@ class ProfileScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                radius: 40,
-                backgroundImage: AssetImage(AppAssets.avatar),
+              Semantics(
+                label: l10n.semanticAvatar,
+                image: true,
+                child: const CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage(AppAssets.avatar),
+                ),
               ),
               const SizedBox(width: 20),
               Expanded(

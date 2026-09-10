@@ -112,22 +112,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   validator: (v) =>
                       v != _password.text ? l10n.passwordsDoNotMatch : null,
                 ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: _accepted,
-                      onChanged: (v) => setState(() => _accepted = v ?? false),
-                      side: const BorderSide(color: AppColors.accent),
-                      activeColor: AppColors.accent,
-                    ),
-                    Text(
-                      l10n.acceptTerms,
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        color: AppColors.accent,
+                MergeSemantics(
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: _accepted,
+                        onChanged: (v) =>
+                            setState(() => _accepted = v ?? false),
+                        side: const BorderSide(color: AppColors.accent),
+                        activeColor: AppColors.accent,
                       ),
-                    ),
-                  ],
+                      Text(
+                        l10n.acceptTerms,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: AppColors.accent,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 PrimaryButton(label: l10n.signUpButton, onPressed: _submit),
                 const SizedBox(height: 20),

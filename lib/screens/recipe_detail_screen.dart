@@ -93,6 +93,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     Row(
                       children: [
                         IconButton(
+                          tooltip: l10n.semanticBack,
                           onPressed: () {
                             if (context.canPop()) {
                               context.pop();
@@ -104,6 +105,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         ),
                         const Spacer(),
                         IconButton(
+                          tooltip: l10n.semanticMore,
                           onPressed: () => _onMore(recipe),
                           icon: const Icon(Icons.more_horiz),
                         ),

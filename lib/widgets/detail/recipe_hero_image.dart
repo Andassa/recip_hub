@@ -24,7 +24,13 @@ class RecipeHeroImage extends StatelessWidget {
           children: [
             Hero(
               tag: 'recipe-image-${recipe.id}',
-              child: Image.asset(recipe.imageUrl, fit: BoxFit.cover),
+              child: Image.asset(
+                recipe.imageUrl,
+                fit: BoxFit.cover,
+                semanticLabel: AppLocalizations.of(
+                  context,
+                ).semanticRecipeImage(recipe.title),
+              ),
             ),
             Positioned(
               top: 12,
@@ -92,19 +98,25 @@ class _FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return GestureDetector(
       onTap: () => context.read<RecipeProvider>().toggleFavorite(recipe.id),
-      child: Container(
-        width: 32,
-        height: 32,
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          recipe.isFavorite ? Icons.bookmark : Icons.bookmark_border,
-          size: 18,
-          color: AppColors.primary,
+      child: Tooltip(
+        message: recipe.isFavorite
+            ? l10n.semanticRemoveFavorite
+            : l10n.semanticAddFavorite,
+        child: Container(
+          width: 32,
+          height: 32,
+          decoration: const BoxDecoration(
+            color: AppColors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            recipe.isFavorite ? Icons.bookmark : Icons.bookmark_border,
+            size: 18,
+            color: AppColors.primary,
+          ),
         ),
       ),
     );

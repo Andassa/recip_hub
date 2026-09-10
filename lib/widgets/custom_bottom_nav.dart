@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 
 /// Bottom nav Figma : barre blanche, encoche circulaire, FAB central.
@@ -19,6 +20,7 @@ class CustomBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final bottomInset = MediaQuery.paddingOf(context).bottom;
 
     return SizedBox(
@@ -50,12 +52,14 @@ class CustomBottomNav extends StatelessWidget {
                             outlined: Icons.home_outlined,
                             filled: Icons.home_rounded,
                             selected: currentIndex == 0,
+                            label: l10n.semanticNavHome,
                             onTap: () => onTap(0),
                           ),
                           _NavIcon(
                             outlined: Icons.bookmark_border_rounded,
                             filled: Icons.bookmark_rounded,
                             selected: currentIndex == 1,
+                            label: l10n.semanticNavSaved,
                             onTap: () => onTap(1),
                           ),
                         ],
@@ -70,12 +74,14 @@ class CustomBottomNav extends StatelessWidget {
                             outlined: Icons.notifications_none_rounded,
                             filled: Icons.notifications_rounded,
                             selected: currentIndex == 2,
+                            label: l10n.semanticNavAlerts,
                             onTap: () => onTap(2),
                           ),
                           _NavIcon(
                             outlined: Icons.person_outline_rounded,
                             filled: Icons.person_rounded,
                             selected: currentIndex == 3,
+                            label: l10n.semanticNavProfile,
                             onTap: () => onTap(3),
                           ),
                         ],
@@ -86,7 +92,13 @@ class CustomBottomNav extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(top: 0, child: _FabButton(onTap: () => onTap(4))),
+          Positioned(
+            top: 0,
+            child: _FabButton(
+              onTap: () => onTap(4),
+              label: l10n.semanticAddRecipe,
+            ),
+          ),
         ],
       ),
     );
@@ -94,24 +106,28 @@ class CustomBottomNav extends StatelessWidget {
 }
 
 class _FabButton extends StatelessWidget {
-  const _FabButton({required this.onTap});
+  const _FabButton({required this.onTap, required this.label});
 
   final VoidCallback onTap;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.primary,
-      shape: const CircleBorder(),
-      elevation: 4,
-      shadowColor: Colors.black26,
-      child: InkWell(
-        customBorder: const CircleBorder(),
-        onTap: onTap,
-        child: const SizedBox(
-          width: CustomBottomNav.fabSize,
-          height: CustomBottomNav.fabSize,
-          child: Icon(Icons.add, color: AppColors.white, size: 28),
+    return Tooltip(
+      message: label,
+      child: Material(
+        color: AppColors.primary,
+        shape: const CircleBorder(),
+        elevation: 4,
+        shadowColor: Colors.black26,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onTap,
+          child: const SizedBox(
+            width: CustomBottomNav.fabSize,
+            height: CustomBottomNav.fabSize,
+            child: Icon(Icons.add, color: AppColors.white, size: 28),
+          ),
         ),
       ),
     );
@@ -123,12 +139,14 @@ class _NavIcon extends StatelessWidget {
     required this.outlined,
     required this.filled,
     required this.selected,
+    required this.label,
     required this.onTap,
   });
 
   final IconData outlined;
   final IconData filled;
   final bool selected;
+  final String label;
   final VoidCallback onTap;
 
   /// Gris clair des icônes inactives (maquette).
@@ -136,27 +154,29 @@ class _NavIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      customBorder: const CircleBorder(),
-      child: SizedBox(
-        width: 48,
-        height: CustomBottomNav.barHeight,
-        child: Center(
-          child: selected
-              ? Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // Remplissage très léger teal (état actif maquette)
-                    Icon(
-                      filled,
-                      size: 26,
-                      color: AppColors.primary.withValues(alpha: 0.16),
-                    ),
-                    Icon(outlined, size: 26, color: AppColors.primary),
-                  ],
-                )
-              : Icon(outlined, size: 26, color: _inactive),
+    return Tooltip(
+      message: label,
+      child: InkWell(
+        onTap: onTap,
+        customBorder: const CircleBorder(),
+        child: SizedBox(
+          width: 48,
+          height: CustomBottomNav.barHeight,
+          child: Center(
+            child: selected
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Icon(
+                        filled,
+                        size: 26,
+                        color: AppColors.primary.withValues(alpha: 0.16),
+                      ),
+                      Icon(outlined, size: 26, color: AppColors.primary),
+                    ],
+                  )
+                : Icon(outlined, size: 26, color: _inactive),
+          ),
         ),
       ),
     );

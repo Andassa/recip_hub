@@ -66,14 +66,17 @@ class SearchBarWidget extends StatelessWidget {
           const SizedBox(width: 12),
           GestureDetector(
             onTap: onFilterTap,
-            child: Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(10),
+            child: Tooltip(
+              message: AppLocalizations.of(context).semanticFilters,
+              child: Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.tune, color: AppColors.white, size: 22),
               ),
-              child: const Icon(Icons.tune, color: AppColors.white, size: 22),
             ),
           ),
         ],

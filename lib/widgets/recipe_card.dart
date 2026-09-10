@@ -36,7 +36,11 @@ class RecipeCard extends StatelessWidget {
             children: [
               Hero(
                 tag: 'recipe-image-${recipe.id}',
-                child: Image.asset(recipe.imageUrl, fit: BoxFit.cover),
+                child: Image.asset(
+                  recipe.imageUrl,
+                  fit: BoxFit.cover,
+                  semanticLabel: l10n.semanticRecipeImage(recipe.title),
+                ),
               ),
               Container(
                 decoration: const BoxDecoration(
@@ -129,19 +133,24 @@ class RecipeCard extends StatelessWidget {
                             const SizedBox(width: 8),
                             GestureDetector(
                               onTap: onFavoriteTap,
-                              child: Container(
-                                width: 28,
-                                height: 28,
-                                decoration: const BoxDecoration(
-                                  color: AppColors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  recipe.isFavorite
-                                      ? Icons.bookmark
-                                      : Icons.bookmark_border,
-                                  size: 16,
-                                  color: AppColors.primary,
+                              child: Tooltip(
+                                message: recipe.isFavorite
+                                    ? l10n.semanticRemoveFavorite
+                                    : l10n.semanticAddFavorite,
+                                child: Container(
+                                  width: 28,
+                                  height: 28,
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    recipe.isFavorite
+                                        ? Icons.bookmark
+                                        : Icons.bookmark_border,
+                                    size: 16,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
                               ),
                             ),

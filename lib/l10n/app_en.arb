@@ -219,5 +219,38 @@
   "categoryVegetables": "Vegetables",
   "categoryLunch": "Lunch",
   "categoryCereal": "Cereal",
-  "categorySpanish": "Spanish"
+  "categorySpanish": "Spanish",
+  "semanticNavHome": "Home",
+  "semanticNavSaved": "Saved recipes",
+  "semanticNavAlerts": "Notifications",
+  "semanticNavProfile": "Profile",
+  "semanticAddRecipe": "Add recipe",
+  "semanticFilters": "Filters",
+  "semanticAddFavorite": "Add to favorites",
+  "semanticRemoveFavorite": "Remove from favorites",
+  "semanticBack": "Back",
+  "semanticMore": "More options",
+  "semanticSettings": "Settings",
+  "semanticClose": "Close",
+  "semanticStarRating": "{count} stars",
+  "@semanticStarRating": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "semanticSplashImage": "Cooking background",
+  "semanticRecipeImage": "Photo of {title}",
+  "@semanticRecipeImage": {
+    "placeholders": {
+      "title": {"type": "String"}
+    }
+  },
+  "semanticAvatar": "Profile photo",
+  "semanticChefHat": "Chef hat",
+  "semanticIngredientImage": "Photo of {name}",
+  "@semanticIngredientImage": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  }
 }

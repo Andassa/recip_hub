@@ -961,6 +961,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Spanish'**
   String get categorySpanish;
+
+  /// No description provided for @semanticNavHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get semanticNavHome;
+
+  /// No description provided for @semanticNavSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved recipes'**
+  String get semanticNavSaved;
+
+  /// No description provided for @semanticNavAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get semanticNavAlerts;
+
+  /// No description provided for @semanticNavProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get semanticNavProfile;
+
+  /// No description provided for @semanticAddRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Add recipe'**
+  String get semanticAddRecipe;
+
+  /// No description provided for @semanticFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters'**
+  String get semanticFilters;
+
+  /// No description provided for @semanticAddFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to favorites'**
+  String get semanticAddFavorite;
+
+  /// No description provided for @semanticRemoveFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from favorites'**
+  String get semanticRemoveFavorite;
+
+  /// No description provided for @semanticBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get semanticBack;
+
+  /// No description provided for @semanticMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get semanticMore;
+
+  /// No description provided for @semanticSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get semanticSettings;
+
+  /// No description provided for @semanticClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get semanticClose;
+
+  /// No description provided for @semanticStarRating.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} stars'**
+  String semanticStarRating(int count);
+
+  /// No description provided for @semanticSplashImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking background'**
+  String get semanticSplashImage;
+
+  /// No description provided for @semanticRecipeImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo of {title}'**
+  String semanticRecipeImage(String title);
+
+  /// No description provided for @semanticAvatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo'**
+  String get semanticAvatar;
+
+  /// No description provided for @semanticChefHat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chef hat'**
+  String get semanticChefHat;
+
+  /// No description provided for @semanticIngredientImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo of {name}'**
+  String semanticIngredientImage(String name);
 }
 
 class _AppLocalizationsDelegate

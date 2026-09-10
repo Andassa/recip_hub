@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../../models/recipe.dart';
 import '../../theme/app_colors.dart';
 
@@ -28,7 +29,13 @@ class IngredientTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Image.asset(ingredient.imageUrl, fit: BoxFit.cover),
+            child: Image.asset(
+              ingredient.imageUrl,
+              fit: BoxFit.cover,
+              semanticLabel: AppLocalizations.of(
+                context,
+              ).semanticIngredientImage(ingredient.name),
+            ),
           ),
           const SizedBox(width: 14),
           Expanded(

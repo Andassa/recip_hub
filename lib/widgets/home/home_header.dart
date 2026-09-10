@@ -43,7 +43,11 @@ class HomeHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           clipBehavior: Clip.antiAlias,
-          child: Image.asset(AppAssets.avatar, fit: BoxFit.cover),
+          child: Image.asset(
+            AppAssets.avatar,
+            fit: BoxFit.cover,
+            semanticLabel: l10n.semanticAvatar,
+          ),
         ),
       ],
     );

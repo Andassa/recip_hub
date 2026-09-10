@@ -43,6 +43,7 @@ class ShareRecipeDialog extends StatelessWidget {
                   ),
                 ),
                 IconButton(
+                  tooltip: l10n.semanticClose,
                   onPressed: () => Navigator.pop(context),
                   icon: const Icon(Icons.close, size: 20),
                 ),

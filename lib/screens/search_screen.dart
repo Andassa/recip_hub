@@ -48,6 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          tooltip: l10n.semanticBack,
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             provider.setSearchQuery('');

@@ -65,9 +65,13 @@ class NewRecipeCard extends StatelessWidget {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      CircleAvatar(
-                        radius: 12,
-                        backgroundImage: AssetImage(recipe.authorImageUrl),
+                      Semantics(
+                        label: l10n.semanticAvatar,
+                        image: true,
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundImage: AssetImage(recipe.authorImageUrl),
+                        ),
                       ),
                       const SizedBox(width: 6),
                       Expanded(
@@ -103,7 +107,11 @@ class NewRecipeCard extends StatelessWidget {
                   ],
                 ),
                 child: ClipOval(
-                  child: Image.asset(recipe.imageUrl, fit: BoxFit.cover),
+                  child: Image.asset(
+                    recipe.imageUrl,
+                    fit: BoxFit.cover,
+                    semanticLabel: l10n.semanticRecipeImage(recipe.title),
+                  ),
                 ),
               ),
             ),
