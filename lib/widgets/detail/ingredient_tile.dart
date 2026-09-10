@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../l10n/app_localizations.dart';
 import '../../models/recipe.dart';
 import '../../theme/app_colors.dart';
+import '../../utils/asset_image_fallback.dart';
 
 /// Tuile ingrédient (image + nom + quantité).
 class IngredientTile extends StatelessWidget {
@@ -32,9 +33,12 @@ class IngredientTile extends StatelessWidget {
             child: Image.asset(
               ingredient.imageUrl,
               fit: BoxFit.cover,
+              cacheWidth: 144,
+              cacheHeight: 144,
               semanticLabel: AppLocalizations.of(
                 context,
               ).semanticIngredientImage(ingredient.name),
+              errorBuilder: assetImageFallback,
             ),
           ),
           const SizedBox(width: 14),

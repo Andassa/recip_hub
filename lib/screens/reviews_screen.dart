@@ -62,58 +62,69 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
-      body: ListView(
+      body: ListView.builder(
         padding: EdgeInsets.all(pad),
-        children: [
-          Row(
-            children: [
-              Text(
-                l10n.commentsCount(mockReviews.length),
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  color: AppColors.textMuted,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                l10n.savedCount(saved),
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  color: AppColors.textMuted,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            l10n.leaveAComment,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 8),
-          _CommentField(
-            controller: _controller,
-            sendLabel: l10n.send,
-            hintText: l10n.saySomething,
-            onSend: () {
-              if (_controller.text.trim().isEmpty) return;
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    recipe != null
-                        ? l10n.commentSentOn(recipe.title)
-                        : l10n.commentSent,
+        itemCount: 5 + mockReviews.length,
+        itemBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return Row(
+                children: [
+                  Text(
+                    l10n.commentsCount(mockReviews.length),
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textMuted,
+                    ),
                   ),
+                  const Spacer(),
+                  Text(
+                    l10n.savedCount(saved),
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textMuted,
+                    ),
+                  ),
+                ],
+              );
+            case 1:
+              return const SizedBox(height: 16);
+            case 2:
+              return Text(
+                l10n.leaveAComment,
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
                 ),
               );
-              _controller.clear();
-            },
-          ),
-          const SizedBox(height: 24),
-          ...mockReviews.map((r) => ReviewTile(review: r)),
-        ],
+            case 3:
+              return Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: _CommentField(
+                  controller: _controller,
+                  sendLabel: l10n.send,
+                  hintText: l10n.saySomething,
+                  onSend: () {
+                    if (_controller.text.trim().isEmpty) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          recipe != null
+                              ? l10n.commentSentOn(recipe.title)
+                              : l10n.commentSent,
+                        ),
+                      ),
+                    );
+                    _controller.clear();
+                  },
+                ),
+              );
+            case 4:
+              return const SizedBox(height: 24);
+            default:
+              return ReviewTile(review: mockReviews[index - 5]);
+          }
+        },
       ),
     );
   }

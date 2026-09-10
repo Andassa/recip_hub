@@ -29,6 +29,50 @@ class NotificationsScreen extends HookWidget {
       groups.putIfAbsent(n.dayGroup, () => []).add(n);
     }
 
+    final tiles = <Widget>[
+      Row(
+        children: ['All', 'Read', 'Unread'].map((f) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: CategoryChip(
+              label: notificationFilterLabel(l10n, f),
+              isSelected: filter.value == f,
+              onTap: () => filter.value = f,
+            ),
+          );
+        }).toList(),
+      ),
+      const SizedBox(height: 20),
+    ];
+    if (items.isEmpty) {
+      tiles.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Center(
+            child: Text(
+              l10n.noNotifications,
+              style: GoogleFonts.poppins(color: AppColors.textMuted),
+            ),
+          ),
+        ),
+      );
+    } else {
+      for (final entry in groups.entries) {
+        tiles.add(
+          Text(
+            entry.key,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        );
+        tiles.add(const SizedBox(height: 12));
+        tiles.addAll(entry.value.map((n) => NotificationCard(notification: n)));
+        tiles.add(const SizedBox(height: 8));
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -37,48 +81,10 @@ class NotificationsScreen extends HookWidget {
           style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
-      body: ListView(
+      body: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: pad),
-        children: [
-          Row(
-            children: ['All', 'Read', 'Unread'].map((f) {
-              return Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: CategoryChip(
-                  label: notificationFilterLabel(l10n, f),
-                  isSelected: filter.value == f,
-                  onTap: () => filter.value = f,
-                ),
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 20),
-          if (items.isEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Center(
-                child: Text(
-                  l10n.noNotifications,
-                  style: GoogleFonts.poppins(color: AppColors.textMuted),
-                ),
-              ),
-            )
-          else
-            ...groups.entries.expand(
-              (e) => [
-                Text(
-                  e.key,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                ...e.value.map((n) => NotificationCard(notification: n)),
-                const SizedBox(height: 8),
-              ],
-            ),
-        ],
+        itemCount: tiles.length,
+        itemBuilder: (_, index) => tiles[index],
       ),
     );
   }

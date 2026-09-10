@@ -6,6 +6,7 @@ import '../../l10n/app_localizations.dart';
 import '../../models/recipe.dart';
 import '../../providers/recipe_provider.dart';
 import '../../theme/app_colors.dart';
+import '../../utils/asset_image_fallback.dart';
 
 /// Image hero du détail recette + rating / temps / favori.
 class RecipeHeroImage extends StatelessWidget {
@@ -27,9 +28,12 @@ class RecipeHeroImage extends StatelessWidget {
               child: Image.asset(
                 recipe.imageUrl,
                 fit: BoxFit.cover,
+                cacheWidth: 1080,
+                cacheHeight: 608,
                 semanticLabel: AppLocalizations.of(
                   context,
                 ).semanticRecipeImage(recipe.title),
+                errorBuilder: assetImageFallback,
               ),
             ),
             Positioned(

@@ -22,7 +22,10 @@ class SplashScreen extends StatelessWidget {
           Image.asset(
             AppAssets.splashBg,
             fit: BoxFit.cover,
+            cacheWidth: 1080,
+            cacheHeight: 1920,
             semanticLabel: l10n.semanticSplashImage,
+            errorBuilder: (_, _, _) => const ColoredBox(color: Colors.black),
           ),
           const _DarkOverlay(),
           SafeArea(

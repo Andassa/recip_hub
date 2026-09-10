@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../l10n/app_localizations.dart';
 import '../models/recipe.dart';
 import '../theme/app_colors.dart';
+import '../utils/asset_image_fallback.dart';
 
 /// Carte horizontale "New Recipes" du Home.
 class NewRecipeCard extends StatelessWidget {
@@ -110,7 +111,10 @@ class NewRecipeCard extends StatelessWidget {
                   child: Image.asset(
                     recipe.imageUrl,
                     fit: BoxFit.cover,
+                    cacheWidth: 240,
+                    cacheHeight: 240,
                     semanticLabel: l10n.semanticRecipeImage(recipe.title),
+                    errorBuilder: assetImageFallback,
                   ),
                 ),
               ),

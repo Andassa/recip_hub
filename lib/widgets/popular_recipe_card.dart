@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../l10n/app_localizations.dart';
 import '../models/recipe.dart';
 import '../theme/app_colors.dart';
+import '../utils/asset_image_fallback.dart';
 
 /// Carte "Popular" du Home (image circulaire + fond gris).
 class PopularRecipeCard extends StatelessWidget {
@@ -135,9 +136,12 @@ class PopularRecipeCard extends StatelessWidget {
                           child: Image.asset(
                             recipe.imageUrl,
                             fit: BoxFit.cover,
+                            cacheWidth: 330,
+                            cacheHeight: 330,
                             semanticLabel: l10n.semanticRecipeImage(
                               recipe.title,
                             ),
+                            errorBuilder: assetImageFallback,
                           ),
                         ),
                       ),

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/assets.dart';
 import '../../l10n/app_localizations.dart';
 import '../../theme/app_colors.dart';
+import '../../utils/asset_image_fallback.dart';
 
 /// En-tête Home : greeting + avatar.
 class HomeHeader extends StatelessWidget {
@@ -46,7 +47,10 @@ class HomeHeader extends StatelessWidget {
           child: Image.asset(
             AppAssets.avatar,
             fit: BoxFit.cover,
+            cacheWidth: 126,
+            cacheHeight: 126,
             semanticLabel: l10n.semanticAvatar,
+            errorBuilder: assetImageFallback,
           ),
         ),
       ],

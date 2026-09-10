@@ -40,94 +40,111 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
+      body: ListView.builder(
         padding: EdgeInsets.all(pad),
-        children: [
-          Row(
-            children: [
-              Semantics(
-                label: l10n.semanticAvatar,
-                image: true,
-                child: const CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage(AppAssets.avatar),
+        itemCount: 10 + recipes.length,
+        itemBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return Row(
+                children: [
+                  Semantics(
+                    label: l10n.semanticAvatar,
+                    image: true,
+                    child: const CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage(AppAssets.avatar),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _stat(l10n.statRecipe, '${recipes.length}'),
+                        _stat(l10n.statFollowers, '2.5M'),
+                        _stat(l10n.statFollowing, '259'),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            case 1:
+              return const SizedBox(height: 14);
+            case 2:
+              return Text(
+                'Afuwape Abiodun',
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _stat(l10n.statRecipe, '${recipes.length}'),
-                    _stat(l10n.statFollowers, '2.5M'),
-                    _stat(l10n.statFollowing, '259'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          Text(
-            'Afuwape Abiodun',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Row(
-            children: [
-              const ChefHatIcon(size: 16),
-              const SizedBox(width: 4),
-              Text(
-                l10n.chefRole,
+              );
+            case 3:
+              return Row(
+                children: [
+                  const ChefHatIcon(size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    l10n.chefRole,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textMuted,
+                    ),
+                  ),
+                ],
+              );
+            case 4:
+              return const SizedBox(height: 6);
+            case 5:
+              return Text(
+                l10n.profileBio,
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: AppColors.textMuted,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Text(
-            l10n.profileBio,
-            style: GoogleFonts.poppins(
-              fontSize: 12,
-              color: AppColors.textMuted,
-            ),
-          ),
-          const SizedBox(height: 16),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              l10n.darkMode,
-              style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
-            ),
-            value: context.watch<ThemeProvider>().isDark,
-            activeThumbColor: AppColors.primary,
-            onChanged: (_) => context.read<ThemeProvider>().toggleTheme(),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.myRecipes,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 12),
-          ...recipes.map(
-            (r) => Padding(
-              padding: const EdgeInsets.only(bottom: 14),
-              child: RecipeCard(
-                recipe: r,
-                height: 150,
-                showTime: true,
-                onTap: () =>
-                    context.pushNamed('detail', pathParameters: {'id': r.id}),
-              ),
-            ),
-          ),
-        ],
+              );
+            case 6:
+              return const SizedBox(height: 16);
+            case 7:
+              return SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text(
+                  l10n.darkMode,
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                ),
+                value: context.watch<ThemeProvider>().isDark,
+                activeThumbColor: AppColors.primary,
+                onChanged: (_) => context.read<ThemeProvider>().toggleTheme(),
+              );
+            case 8:
+              return const SizedBox(height: 8);
+            case 9:
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: Text(
+                  l10n.myRecipes,
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              );
+            default:
+              final recipe = recipes[index - 10];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: RecipeCard(
+                  recipe: recipe,
+                  height: 150,
+                  showTime: true,
+                  onTap: () => context.pushNamed(
+                    'detail',
+                    pathParameters: {'id': recipe.id},
+                  ),
+                ),
+              );
+          }
+        },
       ),
     );
   }
