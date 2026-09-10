@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../l10n/app_localizations.dart';
 import '../l10n/labels.dart';
+import '../models/recipe.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
@@ -23,20 +24,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<RecipeProvider>();
+    final isLoading = context.select<RecipeProvider, bool>((p) => p.isLoading);
+    final error = context.select<RecipeProvider, String?>((p) => p.error);
     final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
-    // Catégories depuis le repository (via provider), pas hardcodées ici.
-    final homeCategories = provider.categories.take(5).toList(growable: false);
 
-    if (provider.isLoading) {
+    if (isLoading) {
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
       );
     }
-    if (provider.error != null) {
+    if (error != null) {
       return Scaffold(
         body: EmptyState(
           message: l10n.loadRecipesFailed,
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: RefreshIndicator(
           color: AppColors.primary,
-          onRefresh: provider.loadRecipes,
+          onRefresh: context.read<RecipeProvider>().loadRecipes,
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -66,49 +66,13 @@ class HomeScreen extends StatelessWidget {
                         onFilterTap: () => showFilterSheet(context),
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(
-                        height: 36,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: homeCategories.length,
-                          separatorBuilder: (_, _) => const SizedBox(width: 10),
-                          itemBuilder: (_, i) {
-                            final cat = homeCategories[i];
-                            return CategoryChip(
-                              label: categoryLabel(l10n, cat),
-                              isSelected: provider.selectedCategory == cat,
-                              onTap: () => provider.setCategory(cat),
-                            );
-                          },
-                        ),
-                      ),
+                      const _HomeCategoryRow(),
                       const SizedBox(height: 20),
                     ],
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 260,
-                  child: ListView.separated(
-                    padding: EdgeInsets.symmetric(horizontal: pad),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: provider.popularRecipes.length,
-                    separatorBuilder: (_, _) => const SizedBox(width: 14),
-                    itemBuilder: (_, i) {
-                      final recipe = provider.popularRecipes[i];
-                      return PopularRecipeCard(
-                        recipe: recipe,
-                        onTap: () => context.pushNamed(
-                          'detail',
-                          pathParameters: {'id': recipe.id},
-                        ),
-                        onFavoriteTap: () => provider.toggleFavorite(recipe.id),
-                      );
-                    },
-                  ),
-                ),
-              ),
+              SliverToBoxAdapter(child: _PopularRecipesRow(padding: pad)),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(pad, 24, pad, 12),
@@ -121,31 +85,115 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 120,
-                  child: ListView.builder(
-                    padding: EdgeInsets.only(left: pad),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: provider.newRecipes.length,
-                    itemBuilder: (_, i) {
-                      final recipe = provider.newRecipes[i];
-                      return NewRecipeCard(
-                        recipe: recipe,
-                        onTap: () => context.pushNamed(
-                          'detail',
-                          pathParameters: {'id': recipe.id},
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+              SliverToBoxAdapter(child: _NewRecipesRow(padding: pad)),
               const SliverToBoxAdapter(child: SizedBox(height: 24)),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _HomeCategoryRow extends StatelessWidget {
+  const _HomeCategoryRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<RecipeProvider, String>(
+      selector: (_, provider) => provider.selectedCategory,
+      builder: (context, selectedCategory, _) {
+        final provider = context.read<RecipeProvider>();
+        final l10n = AppLocalizations.of(context);
+        final homeCategories = provider.categories
+            .take(5)
+            .toList(growable: false);
+        return SizedBox(
+          height: 36,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: homeCategories.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 10),
+            itemBuilder: (_, i) {
+              final cat = homeCategories[i];
+              return CategoryChip(
+                label: categoryLabel(l10n, cat),
+                isSelected: selectedCategory == cat,
+                onTap: () => provider.setCategory(cat),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PopularRecipesRow extends StatelessWidget {
+  const _PopularRecipesRow({required this.padding});
+
+  final double padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<RecipeProvider, List<Recipe>>(
+      selector: (_, provider) => provider.popularRecipes,
+      builder: (context, recipes, _) {
+        final provider = context.read<RecipeProvider>();
+        return SizedBox(
+          height: 260,
+          child: ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            scrollDirection: Axis.horizontal,
+            itemCount: recipes.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 14),
+            itemBuilder: (_, i) {
+              final recipe = recipes[i];
+              return PopularRecipeCard(
+                recipe: recipe,
+                onTap: () => context.pushNamed(
+                  'detail',
+                  pathParameters: {'id': recipe.id},
+                ),
+                onFavoriteTap: () => provider.toggleFavorite(recipe.id),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _NewRecipesRow extends StatelessWidget {
+  const _NewRecipesRow({required this.padding});
+
+  final double padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<RecipeProvider, List<Recipe>>(
+      selector: (_, provider) => provider.newRecipes,
+      builder: (context, recipes, _) {
+        return SizedBox(
+          height: 120,
+          child: ListView.builder(
+            padding: EdgeInsets.only(left: padding),
+            scrollDirection: Axis.horizontal,
+            itemCount: recipes.length,
+            itemBuilder: (_, i) {
+              final recipe = recipes[i];
+              return NewRecipeCard(
+                recipe: recipe,
+                onTap: () => context.pushNamed(
+                  'detail',
+                  pathParameters: {'id': recipe.id},
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

@@ -68,7 +68,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final recipe = context.watch<RecipeProvider>().getById(widget.recipeId);
+    final recipe = context.select<RecipeProvider, Recipe?>(
+      (p) => p.getById(widget.recipeId),
+    );
     final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
     if (recipe == null) {

@@ -98,27 +98,33 @@ class _FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    return GestureDetector(
-      onTap: () => context.read<RecipeProvider>().toggleFavorite(recipe.id),
-      child: Tooltip(
-        message: recipe.isFavorite
-            ? l10n.semanticRemoveFavorite
-            : l10n.semanticAddFavorite,
-        child: Container(
-          width: 32,
-          height: 32,
-          decoration: const BoxDecoration(
-            color: AppColors.white,
-            shape: BoxShape.circle,
+    return Selector<RecipeProvider, bool>(
+      selector: (_, provider) =>
+          provider.getById(recipe.id)?.isFavorite ?? recipe.isFavorite,
+      builder: (context, isFavorite, _) {
+        final l10n = AppLocalizations.of(context);
+        return GestureDetector(
+          onTap: () => context.read<RecipeProvider>().toggleFavorite(recipe.id),
+          child: Tooltip(
+            message: isFavorite
+                ? l10n.semanticRemoveFavorite
+                : l10n.semanticAddFavorite,
+            child: Container(
+              width: 32,
+              height: 32,
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                isFavorite ? Icons.bookmark : Icons.bookmark_border,
+                size: 18,
+                color: AppColors.primary,
+              ),
+            ),
           ),
-          child: Icon(
-            recipe.isFavorite ? Icons.bookmark : Icons.bookmark_border,
-            size: 18,
-            color: AppColors.primary,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

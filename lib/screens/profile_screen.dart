@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../core/assets.dart';
 import '../l10n/app_localizations.dart';
+import '../models/recipe.dart';
 import '../providers/recipe_provider.dart';
 import '../providers/theme_provider.dart';
 import '../theme/app_colors.dart';
@@ -18,7 +19,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final recipes = context.watch<RecipeProvider>().allRecipes.take(4).toList();
+    final recipes = context.select<RecipeProvider, List<Recipe>>(
+      (p) => p.newRecipes,
+    );
     final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
 

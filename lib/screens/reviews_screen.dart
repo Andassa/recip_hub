@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../data/mock_reviews.dart';
 import '../l10n/app_localizations.dart';
+import '../models/recipe.dart';
 import '../providers/recipe_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/responsive.dart';
@@ -31,10 +32,14 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final recipe = context.watch<RecipeProvider>().getById(widget.recipeId);
+    final recipe = context.select<RecipeProvider, Recipe?>(
+      (p) => p.getById(widget.recipeId),
+    );
+    final saved = context.select<RecipeProvider, int>(
+      (p) => p.favorites.length,
+    );
     final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
-    final saved = context.watch<RecipeProvider>().favorites.length;
 
     return Scaffold(
       appBar: AppBar(

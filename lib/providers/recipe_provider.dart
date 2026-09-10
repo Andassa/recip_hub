@@ -12,8 +12,11 @@ class RecipeProvider extends ChangeNotifier {
 
   final RecipeRepository _repository;
 
-  List<Recipe> _allRecipes = [];
-  List<Recipe> _filteredRecipes = [];
+  List<Recipe> _allRecipes = const [];
+  List<Recipe> _filteredRecipes = const [];
+  List<Recipe> _favorites = const [];
+  List<Recipe> _newRecipes = const [];
+  List<Recipe> _popularRecipes = const [];
   String _searchQuery = '';
   String _selectedCategory = 'All';
   String _timeFilter = 'All';
@@ -21,13 +24,11 @@ class RecipeProvider extends ChangeNotifier {
   bool _isLoading = true;
   String? _error;
 
-  List<Recipe> get allRecipes => List.unmodifiable(_allRecipes);
-  List<Recipe> get filteredRecipes => List.unmodifiable(_filteredRecipes);
-  List<Recipe> get favorites =>
-      _allRecipes.where((recipe) => recipe.isFavorite).toList(growable: false);
-  List<Recipe> get newRecipes => _allRecipes.take(4).toList(growable: false);
-  List<Recipe> get popularRecipes =>
-      _allRecipes.where((r) => r.rating >= 3.5).take(6).toList(growable: false);
+  List<Recipe> get allRecipes => _allRecipes;
+  List<Recipe> get filteredRecipes => _filteredRecipes;
+  List<Recipe> get favorites => _favorites;
+  List<Recipe> get newRecipes => _newRecipes;
+  List<Recipe> get popularRecipes => _popularRecipes;
 
   String get searchQuery => _searchQuery;
   String get selectedCategory => _selectedCategory;
@@ -43,6 +44,7 @@ class RecipeProvider extends ChangeNotifier {
     notifyListeners();
     try {
       _allRecipes = List<Recipe>.from(await _repository.getAll());
+      _refreshDerivedLists();
       _applyFilters();
     } catch (e) {
       _error = 'load_failed';
@@ -116,6 +118,17 @@ class RecipeProvider extends ChangeNotifier {
     _filteredRecipes = list;
   }
 
+  void _refreshDerivedLists() {
+    _favorites = _allRecipes
+        .where((recipe) => recipe.isFavorite)
+        .toList(growable: false);
+    _newRecipes = _allRecipes.take(4).toList(growable: false);
+    _popularRecipes = _allRecipes
+        .where((r) => r.rating >= 3.5)
+        .take(6)
+        .toList(growable: false);
+  }
+
   Recipe? getById(String id) {
     try {
       return _allRecipes.firstWhere((recipe) => recipe.id == id);
@@ -130,6 +143,7 @@ class RecipeProvider extends ChangeNotifier {
     if (index != -1) {
       final recipe = _allRecipes[index];
       _allRecipes[index] = recipe.copyWith(isFavorite: !recipe.isFavorite);
+      _refreshDerivedLists();
       _applyFilters();
       notifyListeners();
     }
@@ -166,6 +180,7 @@ class RecipeProvider extends ChangeNotifier {
     );
     await _repository.addRecipe(recipe);
     _allRecipes.insert(0, recipe);
+    _refreshDerivedLists();
     _applyFilters();
     notifyListeners();
   }

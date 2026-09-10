@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,51 +10,36 @@ import '../widgets/common/or_divider.dart';
 import '../widgets/common/social_login_row.dart';
 import '../widgets/primary_button.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends HookWidget {
   const SignUpScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _name = TextEditingController();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-  final _confirm = TextEditingController();
-  bool _accepted = false;
-
-  @override
-  void dispose() {
-    _name.dispose();
-    _email.dispose();
-    _password.dispose();
-    _confirm.dispose();
-    super.dispose();
-  }
-
-  void _submit() {
-    final l10n = AppLocalizations.of(context);
-    if (!(_formKey.currentState?.validate() ?? false)) return;
-    if (!_accepted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(l10n.acceptTermsRequired)));
-      return;
-    }
-    context.goNamed('home');
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final formKey = useMemoized(GlobalKey<FormState>.new);
+    final name = useTextEditingController();
+    final email = useTextEditingController();
+    final password = useTextEditingController();
+    final confirm = useTextEditingController();
+    final accepted = useState(false);
     final l10n = AppLocalizations.of(context);
+
+    void submit() {
+      if (!(formKey.currentState?.validate() ?? false)) return;
+      if (!accepted.value) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(l10n.acceptTermsRequired)));
+        return;
+      }
+      context.goNamed('home');
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -75,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 LabeledField(
                   label: l10n.name,
                   hint: l10n.enterName,
-                  controller: _name,
+                  controller: name,
                   validator: (v) => (v == null || v.trim().length < 2)
                       ? l10n.nameRequired
                       : null,
@@ -83,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 LabeledField(
                   label: l10n.email,
                   hint: l10n.enterEmail,
-                  controller: _email,
+                  controller: email,
                   keyboardType: TextInputType.emailAddress,
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
@@ -98,7 +84,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 LabeledField(
                   label: l10n.password,
                   hint: l10n.enterPassword,
-                  controller: _password,
+                  controller: password,
                   obscure: true,
                   validator: (v) => (v == null || v.length < 6)
                       ? l10n.minSixCharacters
@@ -107,18 +93,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 LabeledField(
                   label: l10n.confirmPassword,
                   hint: l10n.retypePassword,
-                  controller: _confirm,
+                  controller: confirm,
                   obscure: true,
                   validator: (v) =>
-                      v != _password.text ? l10n.passwordsDoNotMatch : null,
+                      v != password.text ? l10n.passwordsDoNotMatch : null,
                 ),
                 MergeSemantics(
                   child: Row(
                     children: [
                       Checkbox(
-                        value: _accepted,
-                        onChanged: (v) =>
-                            setState(() => _accepted = v ?? false),
+                        value: accepted.value,
+                        onChanged: (v) => accepted.value = v ?? false,
                         side: const BorderSide(color: AppColors.accent),
                         activeColor: AppColors.accent,
                       ),
@@ -132,7 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-                PrimaryButton(label: l10n.signUpButton, onPressed: _submit),
+                PrimaryButton(label: l10n.signUpButton, onPressed: submit),
                 const SizedBox(height: 20),
                 const OrDivider(),
                 const SizedBox(height: 16),

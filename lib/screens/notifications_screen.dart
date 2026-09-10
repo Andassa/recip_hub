@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../data/mock_notifications.dart';
@@ -10,29 +11,19 @@ import '../utils/responsive.dart';
 import '../widgets/category_chip.dart';
 import '../widgets/notifications/notification_card.dart';
 
-class NotificationsScreen extends StatefulWidget {
+class NotificationsScreen extends HookWidget {
   const NotificationsScreen({super.key});
 
   @override
-  State<NotificationsScreen> createState() => _NotificationsScreenState();
-}
-
-class _NotificationsScreenState extends State<NotificationsScreen> {
-  String _filter = 'All';
-
-  List<AppNotification> get _filtered {
-    return mockNotifications.where((n) {
-      if (_filter == 'Read') return n.isRead;
-      if (_filter == 'Unread') return !n.isRead;
-      return true;
-    }).toList();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final filter = useState('All');
     final l10n = AppLocalizations.of(context);
     final pad = horizontalPadding(context);
-    final items = _filtered;
+    final items = mockNotifications.where((n) {
+      if (filter.value == 'Read') return n.isRead;
+      if (filter.value == 'Unread') return !n.isRead;
+      return true;
+    }).toList();
     final groups = <String, List<AppNotification>>{};
     for (final n in items) {
       groups.putIfAbsent(n.dayGroup, () => []).add(n);
@@ -55,8 +46,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 padding: const EdgeInsets.only(right: 10),
                 child: CategoryChip(
                   label: notificationFilterLabel(l10n, f),
-                  isSelected: _filter == f,
-                  onTap: () => setState(() => _filter = f),
+                  isSelected: filter.value == f,
+                  onTap: () => filter.value = f,
                 ),
               );
             }).toList(),
