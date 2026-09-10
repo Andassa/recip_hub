@@ -54,8 +54,11 @@ jobs:
       - name: Generate Linux platform files
         run: flutter create --platforms=linux .
 
-      - name: Run integration tests
-        run: xvfb-run -a flutter test integration_test --concurrency=1 -d linux
+      - name: Integration test favorite flow
+        run: xvfb-run -a flutter test integration_test/app_test.dart -d linux
+
+      - name: Integration test add recipe
+        run: xvfb-run -a flutter test integration_test/add_recipe_flow_test.dart -d linux
 
   build_apk:
     runs-on: ubuntu-latest
