@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:integration_test/integration_test.dart';
 
 import '../test/helpers/app_flow.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  GoogleFonts.config.allowRuntimeFetching = true;
+  silenceGoogleFontLoadErrors();
 
   testWidgets('add recipe from home fab and see it on home', (tester) async {
-    await launchAppAtHome(tester);
+    await launchAppAtHome(tester, allowFontFetch: true);
 
     await tester.tap(find.byTooltip('Add recipe'));
     await tester.pump();

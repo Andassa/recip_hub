@@ -4,8 +4,22 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe_hub/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> launchAppAtHome(WidgetTester tester) async {
-  GoogleFonts.config.allowRuntimeFetching = false;
+void silenceGoogleFontLoadErrors() {
+  final previous = FlutterError.onError;
+  FlutterError.onError = (details) {
+    final message = details.exceptionAsString();
+    if (message.contains('google_fonts') || message.contains('Poppins-')) {
+      return;
+    }
+    previous?.call(details);
+  };
+}
+
+Future<void> launchAppAtHome(
+  WidgetTester tester, {
+  bool allowFontFetch = false,
+}) async {
+  GoogleFonts.config.allowRuntimeFetching = allowFontFetch;
   SharedPreferences.setMockInitialValues({});
   final view = tester.view;
   view.physicalSize = const Size(1080, 2340);

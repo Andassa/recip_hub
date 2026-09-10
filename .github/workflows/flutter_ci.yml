@@ -55,7 +55,7 @@ jobs:
         run: flutter create --platforms=linux .
 
       - name: Run integration tests
-        run: xvfb-run -a flutter test integration_test -d linux
+        run: xvfb-run -a flutter test integration_test --concurrency=1 -d linux
 
   build_apk:
     runs-on: ubuntu-latest
