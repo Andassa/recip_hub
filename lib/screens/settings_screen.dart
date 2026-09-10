@@ -123,7 +123,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                l10n.aboutBody('1.0.0'),
+                l10n.aboutBody('1.2.0'),
                 style: GoogleFonts.poppins(
                   fontSize: 13,
                   color: AppColors.textMuted,
